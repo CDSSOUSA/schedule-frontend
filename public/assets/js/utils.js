@@ -26,9 +26,23 @@ console.log(urlParams[3])
 //     document.getElementById('menu-teacher').classList.add('text-decoration-underline', 'fw-bold');
 // }
 
+// area.forEach((el)=>{
+//     console.log(el)
+// })
+
+
 const loadMenu = () => {
-    document.getElementById('menu-teacher').setAttribute('href', `${URL_FRONT}/teacher`);
-    document.getElementById('menu-schedule').setAttribute('href', `${URL_FRONT}/schedule`);
+    let area = [
+        'teacher',
+        'discipline',
+        'series',
+        'schedule'
+    ]
+    area.forEach((el) => {
+        document.getElementById(`menu-${el}`).setAttribute('href', `${URL_FRONT}/${el}`);
+        
+    })    
+    document.getElementById('menu-home').setAttribute('href', `${URL_FRONT}/`);
 }
 
 loadMenu()
@@ -36,86 +50,12 @@ loadMenu()
 const validateArea = (area) => {
     if (area) {
         //document.getElementById(`menu-${area}`).setAttribute('href', `${URL_FRONT}/${area}`);
-        document.getElementById(`menu-${area}`).classList.add('text-decoration-underline', 'fw-bold');
-    } 
+        document.getElementById(`menu-${area}`).classList.add('text-decoration-underline', 'fw-bold','text-success');
+        document.getElementById(`menu-${area}`).classList.remove('text-white');
+    } else {
+        document.getElementById('menu-home').classList.add('text-decoration-underline', 'fw-bold');
+    }
 }
-
-//     let trecho = area.split('.php', 1)
-//     console.log(trecho[0])
-
-//     if(trecho == 'schedule') {
-
-//         document.getElementById('card-schedule').innerHTML = `
-//         <div class="card bg-gradient-dark">
-//         <div class="card-body p-3">
-//             <div class="row">
-//         <div class="col-8">
-//             <div class="numbers">
-//                 <div class="dropdown">
-//                     <button class="btn bg-gradient-primary dropdown-toggle" type="button"
-//                         id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-//                         <span>Quadro de horários</span>
-
-//                     </button>
-//                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-//                         <li><a class="dropdown-item" href="#" onclick="listSchedule('M')">Manhã</a></li>
-//                         <li><a class="dropdown-item" href="#" onclick="listSchedule('T')">Tarde</a></li>
-//                     </ul>
-//                 </div>
-//                 <h5 id="define-shift-menu" class="font-weight-bolder mb-0 text-success">
-//                     30
-//                 </h5>
-//             </div>
-//         </div>
-//         <div class="col-4 text-end">
-//             <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-//                 <i class="fas fa-th text-lg opacity-10" aria-hidden="true"></i>
-//             </div>
-//         </div>
-//         </div>
-//         </div>
-//         </div>`
-
-
-//         document.getElementById('menu-schedule').classList.add('text-decoration-underline', 'fw-bold');
-//     } else if(trecho == 'teacher') {
-
-//         document.getElementById('card-teacher').innerHTML = ` <div class="card bg-gradient-dark">
-//         <div class="card-body p-3">
-//             <div class="row">
-//             <div class="col-8">
-//         <div class="numbers">
-//             <div class="dropdown">
-//                 <button class="btn bg-gradient-primary dropdown-toggle position-relative" type="button"
-//                     id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-//                     <span>Professor (a) </span>
-//                     <span id="amount_teachers" class="badge text-bg-success position-absolute top-0 start-100 translate-middle rounded-pill">5</span>
-//                 </button>
-//                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="li_teacher">
-//                 </ul>
-//             </div>                            
-//         </div>
-//     </div>
-
-//     <div class="col-4 text-end">
-//         <a class="btn btn-icon btn-2 bg-gradient-primary" onclick="addTeacher()" data-bs-toggle="modal"
-//             data-bs-target="#addTeacherModal">
-//             <span class="btn-inner--icon" data-bs-toggle="tooltip" data-bs-title="Novo professor"><i class="fas fa-user"></i></span>    
-//         </a>
-//     </div>
-//     <div class="row">
-//         <h6 class="text-white font-weight-bolder mb-0">
-//             <span id="nameTeacherButton" class="text-opacity-75 text-success">Atualizando . . . </span>
-//             <span id="" class="text-success text-sm font-weight-bolder text-end"></span>
-//         </h6>
-//     </div></div></div></div>`
-
-
-//         document.getElementById('menu-teacher').classList.add('text-decoration-underline', 'fw-bold');
-
-
-//     }    
-// }
 
 validateArea(urlParams[3])
 
