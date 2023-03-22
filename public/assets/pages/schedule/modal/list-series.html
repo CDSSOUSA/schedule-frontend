@@ -1,0 +1,50 @@
+<div class="modal fade" id="listScheduleSeriesModal" tabindex="-1" role="dialog"
+  aria-labelledby="listScheduleSeriesModalLabel" aria-hidden="true">
+
+  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body p-0">
+        <div class="card card-plain">
+          <div class="card-header pb-0 text-left">
+            <h5 class="font-weight-bolder text-primary text-gradient"><i class="fa fa-th"></i> Quadro de Horário ::</h5>            
+            <h3 id="descriptionSerieFake" class="font-weight-bolder text-primary text-gradient"></h3>
+          </div>          
+          <div class="card-header pb-0">
+            <div class="row">
+              <div class="col-lg-6 col-7">
+                <h6></h6>
+                <p class="text-sm mb-0">
+                  <i id="check" class="fa fa-check text-success" aria-hidden="true"></i>
+                  <span id="totalSchedule" class="font-weight-bold ms-1">...</span> AULA(S)
+                </p>
+              </div>
+              <div class="col-lg-6 col-5 my-auto text-end">
+              <a id="btn_print_series_schedule" class="btn btn-outline-primary me-2" data-bs-toggle="tooltip" data-bs-title="Imprimir hórario" 
+              data-bs-placement="left" title="Imprimir" target="_blank"> 
+                      <i class="fa fa-print"></i> Imprimir </a>
+                      <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"><i class="fa fa-close"></i> Fechar</button>                
+              </div>
+            </div>
+          </div>
+          <div class="card-body pb-3">           
+              <div class="table-responsive">
+                <table id="tb_series_schedule" class="table table-striped text-center align-items-center mb-0">
+                  <thead>
+                    <tr class="text-center align-items-center">
+                      <th class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">Dias|Aulas</th>
+                      <th class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">Segunda</th>
+                      <th class="text-center text-uppercase text-dark text-xxs font-weight-bolder opacity-7">Terça</th>
+                      <th class="text-center text-uppercase text-dark text-xxs font-weight-bolder opacity-7">Quarta</th>
+                      <th class="text-center text-uppercase text-dark text-xxs font-weight-bolder opacity-7">Quinta</th>
+                      <th class="text-center text-uppercase text-dark text-xxs font-weight-bolder opacity-7">Sexta</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

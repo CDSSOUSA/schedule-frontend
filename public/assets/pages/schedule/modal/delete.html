@@ -1,0 +1,39 @@
+<div class="modal fade" id="delScheduleTeacherModal" tabindex="-1" role="dialog" aria-labelledby="delScheduleTeacherModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body p-0">
+          <div class="card card-plain">
+            <div class="card-body pb-3">
+              <form role="form text-left" id="deleteScheduleForm" method="post" action="horario/api/del">
+                <input type="hidden" id="idDelete" name="id">
+                <input type="hidden" id="idScheduleTeacherDel" name="idTeacher">
+                <input type="text" id="shiftDel" name="shiftDel">
+                <div class="py-3 text-center font-weight-bold">
+                  <i class="ni ni-bell-55 ni-3x"></i>
+                  <h4 class="text-gradient text-danger mt-4">O horário será removido!</h4>
+                  <div id="color" class="py-3 text-center font-weight-bold" style="color:white; border-radius: 5px;">
+                  <div id="image-disc">                       
+                    </div>
+
+                    <h6 id="disciplineDel" class="mb-0 text-sm font-weight-bold" style="color:white"></h6>
+                    <!-- <span id="nameDel" class="mb-0 text-sm font-weight-bold"></span> -->
+                    <!-- <span id="idSerieDel" class="mb-0 text-sm font-weight-bold"></span><br> -->
+                    <span id="positonDel" class="mb-0 text-sm font-weight-bold"></span>
+                    <span id="dayWeekDel" class="mb-0 text-sm font-weight-bold"></span>
+                    
+                  </div>
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn bg-gradient-primary btn-lg btn-rounded w-100 mt-4 mb-0">Confirmar</button>
+                  <button type="button" class="btn btn-link  ml-auto" data-bs-dismiss="modal">Sair</button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--   Core JS Files   -->
+ 

@@ -1,0 +1,35 @@
+  <!-- Modal edit teacher -->
+  <div class="modal fade" id="editTeacherModal" tabindex="-1" role="dialog" aria-labelledby="editTeacherModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body p-0">
+          <div class="card card-plain">
+            <div class="card-header pb-0 text-left">
+              <h3 class="font-weight-bolder text-primary text-gradient"><i class="fa fa-pencil"></i> Professor (a) ::</h3>
+              <p class="mb-0">Entre com os dados para editar professor(a).</p>
+            </div>
+            <div class="card-body pb-3">
+              <form role="form text-left" method="post" action="teacher/update" id="editTeacherForm">
+                <input id="idTeacherEdit" name="id" type="hidden">
+                <span id="msgAlertErrorEditTeacher"></span>
+                <div class="row">
+                  <div class="col">
+                    <label class="col-form-label">Nome :: <span class="error invalid-feedback" id="fieldAlertErrorEditName"></span></label>
+                    <div class="input-group mb-3">
+                      <input type="text" id="nameEdit" name="name" onfocus="eraseAlert(['fieldAlertErrorEditName','msgAlertErrorEditTeacher'])" class="form-control" id="nameTeacherAdd" placeholder="Nome completo" aria-label="name" aria-describedby="name">
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="text-center">
+                  <button type="submit" class="btn bg-gradient-primary btn-lg btn-rounded w-100 mt-4 mb-0">Salvar</button>
+                  <button type="button" class="btn btn-link  ml-auto" data-bs-dismiss="modal">Sair</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

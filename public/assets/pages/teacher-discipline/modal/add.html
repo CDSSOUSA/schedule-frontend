@@ -1,0 +1,47 @@
+<div class="modal fade" id="addTeacherDisciplineModal" tabindex="-1" role="dialog" aria-labelledby="addTeacherDisciplineModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body p-0">
+        <div class="card card-plain">
+          <div class="card-header pb-0 text-left">
+          <h5 class="font-weight-bolder text-primary text-gradient"> + Disciplina ::</h5>
+          <p class="mb-0">Entre com os dados para registrar disciplina para:</p>
+            <h3 id="nameTeacherDisciplineAdd" class="font-weight-bolder text-primary text-gradient"></h3>
+          </div>
+          <div class="card-body pb-3">
+            <form role="form text-left" method="post" action="teacDisc/create" id="addTeacherDisciplineForm">
+              <input type="hidden" name="id_teacher" id="idTeac">
+              <input type="hidden" name="status" value="A">
+              <span id="msgAlertErrorTeacDisc"></span>
+              <div class="row">
+                <div class="col">
+                  <label class="col-form-label">Qtde aula(s) :: <span class="error invalid-feedback" id="fieldAlertErrorAmountTechDisc"></span></label>
+                  <div class="input-group mb-3">
+                    <input type="number" min="1" max="45" onfocus="eraseAlert(['fieldAlertErrorAmountTechDisc','msgAlertErrorTeacDisc']);" name="amount" class="form-control" id="amountDiscipline" placeholder="Quantidade de aulas" value="" aria-label="amout" aria-describedby="amout">
+
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label class="col-form-label">Cor destaque :: <span class="error invalid-feedback" id="fieldAlertErrorColorTechDisc"></span></label>
+                  <div class="input-group mb-3">
+                    <input type="color" name="color" class="form-control" value="#000000" title="Escolha uma cor" aria-label="color" aria-describedby="color">
+
+                  </div>
+                </div>
+              </div>
+              <label class="col-form-label">Disciplinas :: <span class="error invalid-feedback" id="fieldAlertErrorDisciplinesTechDisc"></span></label>
+              <div class="row" id="disciplinesTeacher">
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn bg-gradient-primary btn-lg btn-rounded w-100 mt-4 mb-0">Salvar</button>
+                <button type="button" class="btn btn-link  ml-auto" data-bs-dismiss="modal">Sair</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

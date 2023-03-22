@@ -1,0 +1,36 @@
+<!-- Modal add teacher -->
+<div class="modal fade" id="addScheduleTeacherModal" tabindex="-1" aria-labelledby="addScheduleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body p-0">
+          <div class="card card-plain">
+            <div class="card-header pb-0 text-left">
+              <h5 class="font-weight-bolder text-primary text-gradient">+ Horário ::</h5>
+              <p class="mb-0">Escolha um professor para a turma: </p>
+              <h3 class="font-weight-bolder text-primary text-gradient">
+                <span id="idSerieFake" class="info-box-number"></span> -
+                <span id="positionFake" class="info-box-number"></span>Aula - <span id="dayWeekFake"
+                    class="info-box-number">
+              </h3>
+             
+            </div>
+            <div class="card-body pb-3">
+                <form action="horario/api/create" method="post" id="addScheduleForm">
+                    <span id="msgAlertErrorAddSchedule"></span>
+                    <input type="text" name="nSerie" id="idSerie">
+                    <input type="text" name="nDayWeek" id="dayWeek">
+                    <input type="text" name="nPosition" id="position">
+                    <input type="text" name="nShift" id="shift">
+                <label class="col-form-label">Disciplinas :: <span class="error invalid-feedback" id="fieldAlertErrorAddScheduleDiscipline"></span></label>
+                <div class="row" id="divOpcao"></div>
+                <div class="text-center">
+                  <button type="submit" class="btn bg-gradient-primary btn-lg btn-rounded w-100 mt-4 mb-0">Salvar</button>
+                  <button type="button" class="btn btn-link  ml-auto" data-bs-dismiss="modal">Sair</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

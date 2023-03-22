@@ -1,0 +1,31 @@
+<div class="modal fade" id="delTeacherDisciplineModal" tabindex="-1" role="dialog"
+    aria-labelledby="delTeacherDisciplineModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="card card-plain">
+                    <div class="card-body pb-3">
+                        <form role="form text-left" id="deleteTeacherDisciplineForm" method="post"
+                            action="teacDisc/del">
+                            <input type="hidden" id="idTeacherDisciplineDel" name="id">
+                            <input type="hidden" id="idTeacherDel" name="idTeacher">
+                            <div class="py-3 text-center font-weight-bold">
+                                <i class="ni ni-bell-55 ni-3x"></i>
+                                <h4 class="text-gradient text-danger mt-4">A disciplina será excluída!</h4>
+                                <div id="dataDeleteTeacDisc"></div>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit"
+                                    class="btn bg-gradient-primary btn-lg btn-rounded w-100 mt-4 mb-0">Confirmar</button>
+                                <button type="button" class="btn btn-link  ml-auto"
+                                    data-bs-dismiss="modal">Sair</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal del teacher  -->
