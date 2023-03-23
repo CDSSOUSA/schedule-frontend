@@ -1,9 +1,14 @@
 var typeSuccess = 'success';
 var titleSuccess = '<strong class="me-auto">Parabéns!</strong>';
-var messageSuccess = '<i class="bi bi-hand-thumbs-up-fill"></i> Operação realizada com sucesso!';
+var messageSuccess = '<i class="bi bi-hand-thumbs-up-fill"></i> Operação realizada com sucesso.';
+
+var typeError = 'error';
+var titleError = '<strong class="me-auto">OPS!</strong>';
+var messageError = '<i class="bi bi-hand-thumbs-down-fill"></i> Ocorreu um erro, tente novamente.';
 
 const URL_BASE = 'http://localhost/gerenciador-horario/public';
 const URL_FRONT = 'http://localhost/schedule-frontend/public';
+
 const URIS = {
     teacher: {
         create: "teacher/create",
@@ -276,7 +281,7 @@ const loadToast = (type, title, message) => {
         title: title,
         message: message,
         buttonText: false,
-        timer: 2000
+        timer: 10000
     })
 }
 

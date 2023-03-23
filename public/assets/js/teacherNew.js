@@ -219,10 +219,12 @@ const listAllocationTeacherDiscipline = async (idTeacher) => {
             } 
             
             if(data.length == 0 ){
-                document.getElementById('btn_print').classList.add('disabled')
+                document.getElementById('btn_print').classList.remove('btn-primary')
+                document.getElementById('btn_print').classList.add('disabled','btn-outline-primary')
             }
             else {
-                document.getElementById('btn_print').classList.remove('disabled')
+                document.getElementById('btn_print').classList.add('btn-primary')
+                document.getElementById('btn_print').classList.remove('disabled','btn-outline-primary')
                 
             }
         })
@@ -434,6 +436,8 @@ function addTeacher() {
     document.getElementById('fieldlertErrordisciplines').innerHTML = ''
     document.getElementById('fieldlertErrorcolor').innerHTML = ''
 
+    console.log(Cookies.get("token"));
+
     addTeacherForm.reset();
 
     $('#addTeacherModal').on('shown.bs.modal', function () {      
@@ -452,6 +456,9 @@ if (addTeacherForm) {
         e.preventDefault();
         //load();
         const dataForm = new FormData(addTeacherForm);
+
+        dataForm.set('token', Cookies.get("token"));
+
         await axios.post(`${URL_BASE}/${URIS.teacher.create}`, dataForm, {
             headers: {
                 "Content-Type": "application/json"
@@ -460,8 +467,18 @@ if (addTeacherForm) {
             .then(response => {
                 console.log(response.data.id)
                 if (response.data.error) {
+
+                    if(response.data.code == 500) {
+
+                        addTeacherForm.reset();
+                        addTeacherModal.hide();
+                        loadToast(typeError, titleError, messageError);
+                        listDisciplinesTeacher(localStorage.getItem('idTeacher'))
+
+                    }
                     console.log(response.data)
                     document.getElementById('msgAlertError').innerHTML = response.data.msg
+
                     const er = response.data.msgs;
                     console.log(er)
                     // er.forEach( (e,indice) => {

@@ -80,7 +80,7 @@
                     <button class="btn bg-gradient-primary dropdown-toggle position-relative" type="button"
                         id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                         <span>Professor (a) </span>
-                        <span id="amount_teachers" class="badge text-bg-success position-absolute top-0 start-100 translate-middle rounded-pill">5</span>
+                        <span id="amount_teachers" class="badge text-bg-success position-absolute top-0 start-100 translate-middle rounded-pill">0</span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="li_teacher">
                     </ul>
@@ -89,10 +89,13 @@
         </div>
     
         <div class="col-4 text-end">
-            <a class="btn btn-icon btn-2 bg-gradient-primary" onclick="addTeacher()" data-bs-toggle="modal"
-                data-bs-target="#addTeacherModal">
-                <span class="btn-inner--icon" data-bs-toggle="tooltip" data-bs-title="Novo professor"><i class="fas fa-user"></i></span>    
-            </a>
+            <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                <i class="fas fa-user text-lg opacity-10" aria-hidden="true"></i>
+            </div>
+           
+               
+              
+           
         </div>
         <div class="row">
             <h6 class="text-white font-weight-bolder mb-0">
