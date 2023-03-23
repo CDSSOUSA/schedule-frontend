@@ -17,6 +17,13 @@ const URIS = {
     },
     schedule: {
         delete: "horario/api/del"
+    },
+    discipline: {
+        create: "discipline/create",
+        update: "discipline/update",
+        list: "discipline/list",
+        show: "discipline/show",
+        delete: "discipline/del",
     }
 }
 

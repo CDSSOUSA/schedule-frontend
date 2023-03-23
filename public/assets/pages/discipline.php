@@ -7,8 +7,8 @@ echo $this->section('content');
     <!-- Navbar -->
     <?php //include('breadcrumb.html'); ?>
     <div class="container-fluid py-4">
-      <?php include('schedule/menu-widget.html'); ?>
-      <?php include('schedule/content.html'); ?>
+      <?php include('discipline/menu-widget.html'); ?>
+      <?php include('discipline/content.html'); ?>
       <div class="row my-4"></div>
       <?php include('footer.html'); ?>
     </div>
@@ -18,13 +18,14 @@ echo $this->section('content');
   ?>
 
   <?php //include('schedule/modal/add.html'); ?>
-  <?php //include('schedule/modal/delete.html'); ?>
+  <?php include('discipline/modal/delete.html'); ?>
+  <?php include('discipline/modal/edit.html'); ?>
   <?php //include('schedule/modal/list-series.html'); ?>
   
   <?= $this->endSection(); 
 
   echo $this->section('script-js'); ?>
 
-  <script src="../public/assets/js/school-schedule.js"></script>
+  <script src="../public/assets/js/discipline.js"></script>
 
   <?= $this->endSection();

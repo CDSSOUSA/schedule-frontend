@@ -1,0 +1,122 @@
+<div class="row mt-4">
+    <div class="col-lg-6 mb-lg-0 mb-4">
+        <div class="card">
+            <div class="card-body p-3">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="d-flex flex-column h-100">
+                            <p class="mb-1 pt-2 text-bold" id="abbreviation">Atualizando...</p>
+                            <h5 class="font-weight-bolder" id="description">Atualizando...</h5>
+                            <p class="mb-3">Quantidade de aulas :: <span id="amount">0</span></p>
+
+                            <div class="bg-gray-100" style="border-radius: 5px;">
+                                <div class="ms-auto text-end" id="action">
+                                    <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i
+                                            class="far fa-trash-alt me-2" aria-hidden="true"></i>Excluir</a>
+                                    <a class="btn btn-link text-dark px-3 mb-0" href="javascript:;"><i
+                                            class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Editar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 ms-auto text-center mt-2 mt-lg-0">
+                        <div class="border-radius-lg h-100" style="background-color:#2e5b8e">
+                            <div class="position-relative d-flex align-items-center justify-content-center h-100" id="icone">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-lg-6">
+        <div class="card h-100 p-3">
+            <div class="card-header pb-0 text-left">
+                <h3 class="font-weight-bolder text-primary text-gradient"> + Disciplina ::</h3>
+                <p class="mb-0">Entre com os dados para registrar a disciplina.</p>
+            </div>
+            <div class="card-body pb-3">
+                <form role="form text-left" method="post" action="discipline/create" id="addDisciplineForm">
+                    <span id="msgAlertErrorDiscipline"></span>
+                    <div class="row">
+                        <div class="col">
+                            <label class="col-form-label">Descrição :: <span class="error invalid-feedback"
+                                    id="fieldAlertErrorDescriptionDiscipline"></span></label>
+                            <div class="input-group mb-3">
+                                <input type="text" name="description" class="form-control"
+                                    onfocus="eraseAlert(['fieldAlertErrorDescriptionDiscipline','msgAlertErrorDiscipline']);"
+                                    id="nameTeacherAdd" placeholder="Nome" aria-label="name" aria-describedby="name">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label class="col-form-label">Qtde aula(s) :: <span class="error invalid-feedback"
+                                    id="fieldAlertErrorAmount"></span></label>
+                            <div class="input-group mb-3">
+                                <input type="number" min="1" max="45" name="amount" class="form-control"
+                                    onfocus="eraseAlert('fieldAlertErrorAmount');" id="amount"
+                                    placeholder="Quantidade de aulas" aria-label="amout"
+                                    aria-describedby="amout">
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label class="col-form-label">Abreviatura :: <span class="error invalid-feedback"
+                                    id="fieldAlertErrorAbbreviation"></span></label>
+                            <div class="input-group mb-3">
+                                <input type="text" name="abbreviation" class="form-control"
+                                    onfocus="eraseAlert('fieldAlertErrorAbbreviation');">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label class="col-form-label">Icone :: <span class="error invalid-feedback"
+                                    id="fieldAlertErrorIcone"></span></label>
+                            <div class="input-group mb-3">
+                                <select class="form-control" id="exampleFormControlSelect1" name="icone" onfocus="eraseAlert('fieldAlertErrorIcone');">
+                                    <option value="">Selecione ...</option>
+                                    <option value="icon-artes.png">Artes</option>
+                                    <option value="icon-biologia.png">Biologia</option>
+                                    <option value="icon-ciencias.png">Ciências</option>
+                                    <option value="icon-edfisica.png">Ed Física</option>
+                                    <option value="icon-filosofia.png">Filosofia</option>
+                                    <option value="icon-fisica.png">Física</option>
+                                    <option value="icon-geografia.png">Geografia</option>
+                                    <option value="icon-gramatica.png">Gramática</option>
+                                    <option value="icon-historia.png">História</option>
+                                    <option value="icon-ingles.png">Inglês</option>
+                                    <option value="icon-matematica.png">Matemática</option>
+                                    <option value="icon-musica.png">Música</option>
+                                    <option value="icon-portugues.png">Português</option>
+                                    <option value="icon-quimica.png">Química</option>
+                                    <option value="icon-redacao.png">Redação</option>
+                                    <option value="icon-religiao.png">Religião</option>
+                                    <option value="icon-sociologia.png">Sociologia</option>
+                                    <option value="icon-teatro.png">Teatro</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit"
+                            class="btn bg-gradient-primary btn-lg btn-rounded w-100 mt-4 mb-0">Salvar</button>
+                        <button type="button" class="btn btn-link  ml-auto" data-bs-dismiss="modal">Sair</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
