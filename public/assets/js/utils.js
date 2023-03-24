@@ -25,6 +25,9 @@ const URIS = {
         list: "discipline/list",
         show: "discipline/show",
         delete: "discipline/del",
+    },
+    series: {
+        create: "series/create"
     }
 }
 
