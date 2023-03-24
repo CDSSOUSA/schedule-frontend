@@ -10,6 +10,7 @@ async function listDisciplines() {
             document.getElementById('li_disciplines').innerHTML = list(data)
             document.getElementById('amount_disciplines').innerHTML = `  + ${data.length}`
             showDisciplines(idDiscipline)
+            
         }
         )
         .catch(error => console.log(error))
@@ -29,6 +30,14 @@ function list(data) {
     return li;
 
 }
+
+const selecter = document.getElementById('prazoTest')
+const modificar = document.getElementById('escrever')
+
+selecter.addEventListener("change",function (e){
+  console.log(e.target.value);
+  modificar.innerHTML = `<img src="../public/assets/img/${e.target.value}" class="w-25">` 
+});
 
 
 async function showDisciplines(idDiscipline) {
@@ -52,10 +61,36 @@ async function showDisciplines(idDiscipline) {
                                                            <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="#" onclick="delDiscipline(${data.id})" data-bs-toggle="modal" data-bs-target="#deleteDisciplineModal">
                                                                 <i class="far fa-trash-alt me-2" aria-hidden="true"></i>Excluir
                                                            </a>`
+                                                           getTotalScheduleByDiscipline(idDiscipline)
 
             }
         })
         .catch(error => console.log(error))
+}
+
+async function getTotalScheduleByDiscipline (idDiscipline) {
+
+    let row = `<a class="btn btn-link text-dark px-3 mb-0" href="#" onclick="editDiscipline(${idDiscipline})"  data-bs-toggle="modal" data-bs-target="#editDisciplineModal">
+    <i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Editar
+</a>`
+    
+    await axios.get(`${URL_BASE}/${URIS.schedule.listDiscipline}/${idDiscipline}`)
+    .then(response => {
+        const data = response.data;
+            console.log(data);
+            if(data === 0){
+                row += `
+           <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="#" onclick="delDiscipline(${idDiscipline})" data-bs-toggle="modal" data-bs-target="#deleteDisciplineModal">
+                <i class="far fa-trash-alt me-2" aria-hidden="true"></i>Excluir
+           </a>`
+            } else {
+                row += `<a class="btn btn-link text-danger text-gradient px-3 mb-0 disabled" href="#">
+                <i class="far fa-trash-alt me-2" aria-hidden="true"></i>Excluir
+           </a>`
+            }
+            document.getElementById('action').innerHTML = row
+    })
+    .catch(error =>console.log(error))    
 }
 
 
@@ -84,6 +119,7 @@ if (addDisciplineForm) {
                 } else {
 
                     //addDisciplineModal.hide();
+                    modificar.innerHTML = ''
                     addDisciplineForm.reset();
                     localStorage.setItem('idDisciplineStorege', response.data.id)
                     loadToast(typeSuccess, titleSuccess, messageSuccess);

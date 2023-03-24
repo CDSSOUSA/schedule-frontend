@@ -16,7 +16,8 @@ const URIS = {
         delete: "teacher/del"
     },
     schedule: {
-        delete: "horario/api/del"
+        delete: "horario/api/del",
+        listDiscipline: 'horario/api/listDisciplines'
     },
     discipline: {
         create: "discipline/create",
