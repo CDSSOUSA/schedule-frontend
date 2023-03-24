@@ -36,7 +36,11 @@ const modificar = document.getElementById('escrever')
 
 selecter.addEventListener("change",function (e){
   console.log(e.target.value);
-  modificar.innerHTML = `<img src="../public/assets/img/${e.target.value}" class="w-25">` 
+  if(e.target.value ){
+      modificar.innerHTML = `<img src="../public/assets/img/${e.target.value}" class="w-25">` 
+  } else {
+    modificar.innerHTML = ''
+  }
 });
 
 
@@ -62,6 +66,7 @@ async function showDisciplines(idDiscipline) {
                                                                 <i class="far fa-trash-alt me-2" aria-hidden="true"></i>Excluir
                                                            </a>`
                                                            getTotalScheduleByDiscipline(idDiscipline)
+                document.getElementById('nameDisciplineButton').innerHTML = data.description
 
             }
         })
@@ -103,12 +108,21 @@ if (addDisciplineForm) {
         const dataForm = new FormData(addDisciplineForm);
         await axios.post(`${URL_BASE}/${URIS.discipline.create}`, dataForm, {
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": Cookies.get("token"),
             }
         })
             .then(response => {
                 console.log(response.data)
                 if (response.data.error) {
+                    if(response.data.code == 500) {
+
+                        addDisciplineForm.reset();
+                        //addDisciplineModal.hide();
+                        loadToast(typeError, titleError, messageError);
+                        listDisciplines();
+
+                    }        
                     console.log(response.data)
                     document.getElementById('msgAlertErrorDiscipline').innerHTML = response.data.msg
                     validateErros(response.data.msgs.description, 'fieldAlertErrorDescriptionDiscipline')
@@ -172,12 +186,21 @@ if (editDisciplineForm) {
         //Faz chamada para editar os dados
         await axios.post(`${URL_BASE}/${URIS.discipline.update}`, dataForm, {
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": Cookies.get("token"),
             }
         })
-            .then(response => {
+            .then(response => {              
                 
-                if (response.data.error) {                   
+                if (response.data.error) {    
+                    if(response.data.code == 500) {
+
+                        editDisciplineForm.reset();
+                        editDisciplineModal.hide();
+                        loadToast(typeError, titleError, messageError);
+                        listDisciplines();
+
+                    }               
                     //Exibe os erros no preechimento do formulário
                     document.getElementById('msgAlertErrorDisciplineEdit').innerHTML = response.data.msg                                
                     validateErros(response.data.msgs.description, 'fieldAlertErrorDescriptionDisciplineEdit')
