@@ -32,7 +32,7 @@ function list(data) {
     let li = ''
     if (data) {
         data.forEach((elem, indice) => {
-            li += `<li><a class="dropdown-item" href="#" onclick="showSeries(${elem.id})">${indice + 1} - ${elem.description}º ${elem.classification} - ${convertShift(elem.shift)}</a></li>`
+            li += `<li><a class="dropdown-item" href="#" onclick="showSeries(${elem.id})">${elem.description}º ${elem.classification} - ${convertShift(elem.shift)}</a></li>`
         })
 
     }
@@ -42,6 +42,12 @@ function list(data) {
 }
 async function showSeries(idSerie) {
 
+    let display = 'disabled'
+    let title = 'Ativar'
+    let icon = 'fa-check-double'
+    let colorText = 'text-success'
+
+    
     //await axios.get(`${URL_BASE}/${URIS.discipline.show}/${idDiscipline}`)
     await axios.get(`${URL_BASE}/${URIS.series.show}/${idSerie}`)
         .then(response => {
@@ -56,11 +62,32 @@ async function showSeries(idSerie) {
                 // document.getElementById('abbreviation').innerText = data.abbreviation
                 // document.getElementById('amount').innerText = writeZero(data.amount)
                 // document.getElementById('icone').innerHTML = `<img class="w-25 position-relative z-index-2 pt-4 mb-3" src="../public/assets/img/${data.icone}" alt="rocket">`
-                document.getElementById('action').innerHTML = `<a class="btn btn-link text-dark px-3 mb-0" href="#" onclick="editSeries(${data[0].id})"  data-bs-toggle="modal" data-bs-target="#editSeriesModal">
-                    <i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Editar
-                    </a>
-                    <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="#" onclick="editSeriesStatus(${data[0].id}, '${data[0].status}')" data-bs-toggle="modal" data-bs-target="#editSeriesStatusModal"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Excluir</a>
-               `
+
+              
+                let button = `<a class="btn btn-link text-dark px-3 mb-0 ${display}" href="#" onclick="editSeries(${data[0].id})"  data-bs-toggle="modal" data-bs-target="#editSeriesModal">
+                <i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Editar
+                </a>`
+
+                if (data[0].status == 'A') {
+                    display = ''
+                    title = 'Desativar'
+                    icon = 'fa-trash'
+                    colorText = 'text-danger'
+                    button += `
+                    <a class="btn btn-link ${colorText} text-gradient px-3 mb-0" href="#" onclick="editSeriesStatus(${data[0].id}, '${data[0].status}')" data-bs-toggle="modal" data-bs-target="#editSeriesStatusModal"><i class="far ${icon} me-2" aria-hidden="true"></i>${title}</a>
+                `
+                } 
+                // else {
+                //     button += `<a class="btn btn-link text-success text-gradient px-3 mb-0" href="#" onclick="editSeriesStatus(${data[0].id}, '${data[0].status}')" data-bs-toggle="modal" data-bs-target="#editSeriesStatusModal"><i class="fa fa-check-double me-2" aria-hidden="true"></i>Ativar</a>`
+              
+                // }
+
+                document.getElementById('action').innerHTML = `<a class="btn btn-link text-dark px-3 mb-0 ${display}" href="#" onclick="editSeries(${data[0].id})"  data-bs-toggle="modal" data-bs-target="#editSeriesModal">
+                <i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Editar
+                </a>
+                <a class="btn btn-link ${colorText} text-gradient px-3 mb-0" href="#" onclick="editSeriesStatus(${data[0].id}, '${data[0].status}')" data-bs-toggle="modal" data-bs-target="#editSeriesStatusModal"><i class="fa ${icon} me-2" aria-hidden="true"></i>${title}</a>
+                `
+
                 //                                            getTotalScheduleByDiscipline(idDiscipline)
                 // document.getElementById('nameDisciplineButton').innerHTML = data.description
                 shiftGlobal = response.data[0].shift
@@ -207,7 +234,7 @@ async function editSeriesStatus(idSerie, statusActual) {
 
     //activeSeriesModal.show();
     document.getElementById('idSerieStatus').value = idSerie;
-    document.getElementById('statusEdit').innerText = `A série será desativada!`
+    document.getElementById('statusEdit').innerText = `A série será ${convertStatusRotulo(statusActual)}!`
     document.getElementById('statusActual').value = statusActual
     getSeries(idSerie, 'dataEditSeries');
 
@@ -234,14 +261,14 @@ if (activeSerieForm) {
                     console.log(response.data)
                     document.getElementById('msgAlertError').innerHTML = response.data.msg
                     document.getElementById('fieldlertError').innerHTML = `<i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ${response.data.msgs.description}!`
-                    
+
                 } else {
                     // load();
                     // //console.log(response.data)
                     // location.reload();
                     activeSeriesModal.hide();
                     activeSerieForm.reset();
-                    localStorage.setItem('idSeriesStorege', response.data.idEnd[0].id)               
+                    localStorage.setItem('idSeriesStorege', response.data.idEnd[0].id)
 
                     loadToast(typeSuccess, titleSuccess, messageSuccess);
 
@@ -364,7 +391,7 @@ async function getSeries(id, locale) {
         .then(response => {
             console.log(response.data)
             document.getElementById(locale).innerText = `${response.data[0].description}º${response.data[0].classification} - ${convertShift(response.data[0].shift)}`
-           
+
             shiftGlobal = response.data[0].shift
         })
         .catch(error => console.log(error))

@@ -178,9 +178,9 @@ const convertStatus = (status) => {
     return _shift;
 }
 const convertStatusRotulo = (status) => {
-    let _shift = 'Ativar'
+    let _shift = 'ativada'
     if (status === 'A')
-        _shift = 'Desativar'
+        _shift = 'desativada'
     return _shift;
 }
 
