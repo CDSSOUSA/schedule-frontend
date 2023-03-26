@@ -5,6 +5,8 @@
 // var messageSuccess = '<i class="fa fa-user"></i> Operação realizada com sucesso!';
 
 var shiftLocalStorage = localStorage.getItem('shift')
+//var local = localStorage.getItem('totalScheduleStorage')
+// var totalSchedule = 0
 
 
  if (shiftLocalStorage == null) {
@@ -20,6 +22,7 @@ var shiftGlobal = '';
 listSchedule(localStorage.getItem('shift'))
 
 async function listSchedule(shift) {
+    console.log(localStorage.getItem('totalScheduleStorage'))
     shiftGlobal = shift
     document.getElementById('define-shift-heard').textContent = convertShift(shift)
     document.getElementById('define-shift-menu').textContent = convertShift(shift)
@@ -31,7 +34,20 @@ async function listSchedule(shift) {
             document.querySelector("#tb_schedule > tbody").innerHTML = `${loadDataSchedule(data)}`;
             //document.querySelector("#tb_schedule > tbody").innerHTML = `${loadDataSchedule(data)}`;
             //loadDataTable(data)
-            document.getElementById('btn_print_schedule').setAttribute('onclick', `printReportSchedule('${shift}')`)
+            console.log(localStorage.getItem('totalScheduleStorage'))
+            // if(localStorage.getItem('totalScheduleStorage')>=1) {
+
+            //     document.getElementById('btn_print_schedule').setAttribute('onclick', `printReportSchedule('${shift}')`)
+
+            //     //document.getElementById('btn_print_schedule').innerHTML = `<a id="btn_print_schedule" onclick="${printReportSchedule(${shift})}" class="btn btn-primary" target="_blank">
+            //     //<i class="fa fa-print"></i> Imprimir </a>`
+
+            // } else {
+            //     //document.getElementById('btn_print_schedule').innerHTML = `<a id="btn_print_schedule" class="btn btn-outline-primary disabled">
+            //     //<i class="fa fa-print"></i> Imprimir </a>`
+            //     document.getElementById('btn_print_schedule').removeAttribute('onclick', `printReportSchedule('${shift}')`)
+            // }
+           
         }
         )
         .catch(error => console.log(error))
@@ -474,7 +490,7 @@ if (deleteScheduleForm) {
 
 async function getSeries(id, locale) {
 
-    await axios.get(`${URL_BASE}/series/show/${id}`)
+    await axios.get(`${URL_BASE}/${URIS.series.show}/${id}`)
         .then(response => {
             console.log(response.data)
             document.getElementById(locale).innerText = `${response.data[0].description}º${response.data[0].classification} - ${convertShift(response.data[0].shift)}`
@@ -484,7 +500,7 @@ async function getSeries(id, locale) {
 }
 
 async function listSeries(shift) {
-    await axios.get(`${URL_BASE}/series/list/shift/${shift}`)
+    await axios.get(`${URL_BASE}/${URIS.series.list.shift}/${shift}`)
         .then(response => {
             const data = response.data;
             console.log(data);
@@ -496,20 +512,34 @@ async function listSeries(shift) {
 }
 
 function loadDataSeries(data) {
+    let totalSchedule = 0
+    let shift
+    //localStorage.setItem('totalScheduleStorage', 0)
+    let button 
     let row = "";
     row += `<td class="text-uppercase text-secondary text-xxs font-weight-bolder text-dark">Dias</td>
     <td class="text-uppercase text-secondary text-xxs font-weight-bolder text-dark ps-2">Aulas</td>`
 
     console.table(data)
 
-    data.forEach((element, indice) => {
+    data.forEach((element, indice) => {  
+        console.log(element.total) 
         
+        if(element.total >= 1){
+                button = 'btn btn-primary'
+                totalSchedule =+ totalSchedule + element.total
+                shift = element.shift
+                
+                document.getElementById('btn_print_schedule').setAttribute('onclick', `printReportSchedule('${element.shift}')`)
+        } else {
+            button = 'btn btn-outline-primary disabled'
+        }
 
         row +=
             `<td class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
             <div class="text-center align-items-center" style="display: flex;
             justify-content: center;">
-                <a href="#" onclick="listScheduleSeries(${element.id})" data-bs-toggle="modal" data-bs-target="#listScheduleSeriesModal" title="Imprimir"  class="btn btn-outline-primary">
+                <a href="#" onclick="listScheduleSeries(${element.id})" data-bs-toggle="modal" data-bs-target="#listScheduleSeriesModal" title="Imprimir"  class="${button}">
                     <span class="font-weight-bold">
                         <i class="fa fa-users" aria-hidden="true"></i> ${element.description}º${element.classification}
                     </span>
@@ -518,5 +548,17 @@ function loadDataSeries(data) {
             </td>`;
 
     });
+
+    if (totalSchedule >= 1) {
+        document.getElementById('btn_print_schedule').setAttribute('onclick', `printReportSchedule('${shift}')`)
+        document.getElementById('btn_print_schedule').classList.add('btn','btn-primary')
+        document.getElementById('btn_print_schedule').classList.remove('btn-outline-primary','disabled')
+    } else {
+        document.getElementById('btn_print_schedule').removeAttribute('onclick', `printReportSchedule('M')`)
+        document.getElementById('btn_print_schedule').classList.remove('btn-primary')
+        document.getElementById('btn_print_schedule').classList.add('btn','btn-outline-primary','disabled')
+
+    }
+    
     return row;
 }

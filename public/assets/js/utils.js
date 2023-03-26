@@ -19,6 +19,7 @@ const URIS = {
         delete: "horario/api/del",
         listDiscipline: 'horario/api/listDisciplines',
         listSeries: "horario/api/listSeries"
+        
     },
     discipline: {
         create: "discipline/create",
@@ -31,7 +32,10 @@ const URIS = {
         create: "series/create",
         update: "series/update",
         show: "series/show",
-        active: "series/active"
+        active: "series/active",
+        list: {
+            shift:"series/list/shift"
+        }
     },
     report: {
         series: "report/series"
