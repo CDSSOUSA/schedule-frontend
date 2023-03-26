@@ -49,11 +49,18 @@ async function listDisciplinesTeacher(idTeacher) {
             }
             getDataTeacher(idTeacher, 'nameTeacherButton')
             listAllocationTeacherDiscipline(idTeacher)
-            listTeachers()
+
+            let listTeacher = listTeachers()
+
+            //listTeacher = response.data;
+            document.getElementById('li_teacher').innerHTML = list(listTeacher.data)
+            document.getElementById('amount_teachers').innerHTML = `  + ${listTeacher.length}`
+
+            list
             listAllocationTeacherDisciplineAll(idTeacher)
             listDisciplines()
 
-  
+
         }).catch(error => console.log(error))
 }
 
@@ -64,11 +71,11 @@ async function listDisciplines() {
         .then(response => {
             const data = response.data;
             console.log(data);
-            document.querySelector("#disciplines").innerHTML = `${loadDataDisciplines(data,'disciplines')}`;   
-            document.querySelector("#disciplinesTeacher").innerHTML = `${loadDataDisciplines(data,'disciplinesTeacher')}`;   
-            
+            document.querySelector("#disciplines").innerHTML = `${loadDataDisciplines(data, 'disciplines')}`;
+            document.querySelector("#disciplinesTeacher").innerHTML = `${loadDataDisciplines(data, 'disciplinesTeacher')}`;
+
             // data.forEach((elem)=>{
-                
+
             // })
         }
         )
@@ -81,13 +88,13 @@ async function listDisciplines() {
 //getElementById('nameTeacherButton').innerText = nameTeacher
 
 async function listTeachers() {
-    await axios.get(`${URL_BASE}/teacher/list`)
+    await axios.get(`${URL_BASE}/${URIS.teacher.list}`)
         .then(response => {
-            const data = response.data;
-            console.log(data);
-            console.log(data.length)
-            document.getElementById('li_teacher').innerHTML = list(data)
-            document.getElementById('amount_teachers').innerHTML = `  + ${data.length}`
+            // const data = response.data;
+            // console.log(data);
+            // console.log(data.length)
+            // document.getElementById('li_teacher').innerHTML = list(data)
+            // document.getElementById('amount_teachers').innerHTML = `  + ${data.length}`
             //document.querySelector("#tb_teacher > tbody").innerHTML = `${loadDataTeacher(data)}`;
             //loadDataTable(data)
         }
@@ -112,7 +119,7 @@ function list(data) {
 function listRowDisciplines(data, idTeacher) {
     let row = '';
     let amount = 0;
-    
+
     if (data.length >= 1) {
         console.log('aqui tem data');
         console.log(data)
@@ -131,13 +138,21 @@ function listRowDisciplines(data, idTeacher) {
             </div>
            
         </button><br>`
-            document.getElementById('action').innerHTML = `<a class="btn btn-link text-dark px-3 mb-0" href="#" onclick="editTeacher(${idTeacher})"  data-bs-toggle="modal" data-bs-target="#editTeacherModal"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Editar</a>
-        <a class="btn btn-link text-danger disabled text-gradient px-3 mb-0" href="#"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Excluir</a>`
+            document.getElementById('action').innerHTML = `
+            <a class="btn btn-link text-dark px-3 mb-0" href="#" onclick="editTeacher(${idTeacher})" data-bs-toggle="modal" data-bs-target="#editTeacherModal">
+                <i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Editar
+            </a>
+            <a class="btn btn-link text-danger disabled text-gradient px-3 mb-0" href="#">
+                <i class="far fa-trash-alt me-2" aria-hidden="true"></i>Excluir
+            </a>
+            <a class="btn btn-link text-dark px-3 mb-0" href="#" onclick="replaceTeacher(${idTeacher})" data-bs-toggle="modal" data-bs-target="#replaceTeacherModal">
+                <i class="fa fa-refresh text-dark me-2" aria-hidden="true"></i>Substituir
+            </a>`
             document.getElementById('disciplineOption').innerHTML = `<a class="btn btn-link text-dark px-3 mb-0" href="#" onclick="addTeacherDiscipline(${idTeacher})"  data-bs-toggle="modal" data-bs-target="#addTeacherDisciplineModal"><i class="fas fa-plus text-dark me-2" aria-hidden="true"></i>Disciplina</a>
     <a class="btn btn-link text-dark text-gradient px-3 mb-0" href="#" onclick="addAllocationTeacher(${idTeacher})" data-bs-toggle="modal" data-bs-target="#addAllocationTeacherModal"><i class="fas fa-plus me-2" aria-hidden="true"></i>Disponibilidade</a>
     
     `
-    amount =+ e.amount + amount
+            amount = + e.amount + amount
         })
     } else {
         row = `
@@ -150,7 +165,7 @@ function listRowDisciplines(data, idTeacher) {
         <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="#" onclick="delTeacher(${idTeacher})" data-bs-toggle="modal" data-bs-target="#deleteTeacherModal"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Excluir</a>`
         document.getElementById('disciplineOption').innerHTML = `<a class="btn btn-link text-dark px-3 mb-0" href="#" onclick="addTeacherDiscipline(${idTeacher})"  data-bs-toggle="modal" data-bs-target="#addTeacherDisciplineModal"><i class="fas fa-plus text-dark me-2" aria-hidden="true"></i>Disciplina</a>`
 
-    }    
+    }
 
     document.getElementById('totalAmount').textContent = writeZero(amount)
 
@@ -208,24 +223,24 @@ const listAllocationTeacherDiscipline = async (idTeacher) => {
                 //document.getElementById('numeroAulas').value = data[0].amount
                 //document.getElementById('corDestaque').value = data[0].color
                 document.getElementById('totalAllocation').textContent = `${writeZero(total)} de`
-               
+
                 document.getElementById('btn_print').setAttribute('onclick', `printReportTeacher(${idTeacher})`)
-                   
+
                 //document.getElementById('totalAllocation').value = total;
                 //getDataTeacher(id, 'nameDisciplineAllocation');
                 //getDataTeacherDiscipline(id);
                 //document.getElementById('btn_print').setAttribute('onclick', `printReportTeacher(${id})`)
 
-            } 
-            
-            if(data.length == 0 ){
+            }
+
+            if (data.length == 0) {
                 document.getElementById('btn_print').classList.remove('btn-primary')
-                document.getElementById('btn_print').classList.add('disabled','btn-outline-primary')
+                document.getElementById('btn_print').classList.add('disabled', 'btn-outline-primary')
             }
             else {
                 document.getElementById('btn_print').classList.add('btn-primary')
-                document.getElementById('btn_print').classList.remove('disabled','btn-outline-primary')
-                
+                document.getElementById('btn_print').classList.remove('disabled', 'btn-outline-primary')
+
             }
         })
         .catch(error => console.log(error))
@@ -242,7 +257,7 @@ const listAllocationTeacherDisciplineAll = async (idTeacher) => {
         .then(response => {
             const data = response.data;
 
-            console.log(data);           
+            console.log(data);
             if (data) {
                 console.log('total é ' + data)
                 //editModal.show();
@@ -260,22 +275,22 @@ const listAllocationTeacherDisciplineAll = async (idTeacher) => {
                 document.getElementById('disciplineOption').innerHTML += `<a class="btn btn-link text-danger text-gradient px-3 mb-0" href="#" onclick="delAllocationTeacher(${idTeacher})" data-bs-toggle="modal" data-bs-target="#delAllocationTeacherModal"><i class="fas fa-trash me-2" aria-hidden="true"></i>Disponibilidade</a>`
                 //alert('aqui é disponibilidade')
 
-            }  else {
+            } else {
                 document.getElementById('disciplineOption').innerHTML += ''
                 //alert('merda')
             }
         })
         .catch(error => console.log(error))
 
-        // if(localStorage.getItem('amountAllocation') >= localStorage.getItem('amountTotalTeacher')) {
-        //     document.getElementById('check').classList.remove('text-danger') 
-        //     document.getElementById('check').classList.add('text-success') 
-            
-        // } else {
-           
-        //     document.getElementById('check').classList.remove('text-success') 
-        //     document.getElementById('check').classList.add('text-danger') 
-        // }
+    // if(localStorage.getItem('amountAllocation') >= localStorage.getItem('amountTotalTeacher')) {
+    //     document.getElementById('check').classList.remove('text-danger') 
+    //     document.getElementById('check').classList.add('text-success') 
+
+    // } else {
+
+    //     document.getElementById('check').classList.remove('text-success') 
+    //     document.getElementById('check').classList.add('text-danger') 
+    // }
 
 
 }
@@ -318,8 +333,8 @@ function loadDataAllocationChecked(data) {
 
     let row = "";
 
-   
-  
+
+
 
     // let dayShow = '';
     // let rowColor = '';
@@ -335,24 +350,24 @@ function loadDataAllocationChecked(data) {
             row += `<td style="" class="text-center align-middle">`
 
             //row += `<th scope="row">${dw}${ps}</th>`
-            
+
             //if (dw && ps) {
-                data.forEach((elem, indice) => {   
-                        if (elem.dayWeek == dw && elem.position == ps && elem.situation == 'L') {
-                                row += ` <div class="form-check form-switch">                                
+            data.forEach((elem, indice) => {
+                if (elem.dayWeek == dw && elem.position == ps && elem.situation == 'L') {
+                    row += ` <div class="form-check form-switch">                                
                             <input class="form-check-input" onclick="eraseAlert('msgAlertErrorTeacherAllocationDel')" checked="true" name="nIdsAllocation[]" value="${elem.id}" type="checkbox" role="switch" id="dayWeek${ps}${dw}${elem.shift}${elem.abbreviation}">
                             <label class="form-check-label" for="dayWeek${ps}${dw}${elem.shift}${elem.abbreviation}">${elem.shift} - ${elem.abbreviation}</label>
                           </div>`
-                            }                        
-                    })   
-                
+                }
+            })
+
             //} 
-           
+
             row += `</td>`
         }
         row += `</tr>`
     }
-    
+
     return row;
 }
 function loadDataSchedule(data) {
@@ -440,8 +455,8 @@ function addTeacher() {
 
     addTeacherForm.reset();
 
-    $('#addTeacherModal').on('shown.bs.modal', function () {      
-        $('#nameTeacherAdd').trigger('focus');   
+    $('#addTeacherModal').on('shown.bs.modal', function () {
+        $('#nameTeacherAdd').trigger('focus');
     });
 
     // addTeacherModal.addEventListener('shown.bs.modal', () => {
@@ -468,7 +483,7 @@ if (addTeacherForm) {
                 console.log(response.data.id)
                 if (response.data.error) {
 
-                    if(response.data.code == 500) {
+                    if (response.data.code == 500) {
 
                         addTeacherForm.reset();
                         addTeacherModal.hide();
@@ -969,7 +984,7 @@ async function getDataTeacherDiscipline(idTeacher) {
 }
 
 
-function loadDataDisciplines(data,term) {
+function loadDataDisciplines(data, term) {
     //let ticket = '';
     let row = '';
 
@@ -1200,7 +1215,7 @@ const deleteScheduleModal = new bootstrap.Modal(document.getElementById('delSche
 
 async function delScheduleTeacher(id) {
     await axios.get(`${URL_BASE}/horario/api/delete/${id}`)
-        .then(response => {            
+        .then(response => {
             const data = response.data;
             console.log(data);
             if (data) {
@@ -1209,7 +1224,7 @@ async function delScheduleTeacher(id) {
                 document.getElementById('disciplineDel').innerHTML = `${data.name} <br> <span>${data.abbreviation}</span> - <span id="idSerieDel">${getSeries(data.id_series, 'idSerieDel')}</span>`
                     ;
                 document.getElementById('positonDel').innerText = `${data.position} ª AULA - `
-                document.getElementById('dayWeekDel').innerText = `${convertDayWeek(data.dayWeek,true)}`
+                document.getElementById('dayWeekDel').innerText = `${convertDayWeek(data.dayWeek, true)}`
                 document.getElementById('shiftDel').value = data.shift
                 document.getElementById('idScheduleTeacherDel').value = data.id_teacher
                 document.getElementById('color').style.backgroundColor = data.color
@@ -1232,7 +1247,7 @@ if (deleteScheduleForm) {
         const dataForm = new FormData(deleteScheduleForm);
 
         await axios.post(`${URL_BASE}/${URIS.schedule.delete}`, dataForm, {
-            
+
             headers: {
                 "Content-Type": "application/json"
             }
@@ -1276,9 +1291,45 @@ async function getSeries(id, locale) {
         .catch(error => console.log(error))
 }
 
-function printReportTeacher(id) 
-{
+function printReportTeacher(id) {
     //listAllocationModal.hide();
 
     window.open(`${URL_BASE}/report/teacher/${id}`);
+}
+
+const replaceTeacherModal = new bootstrap.Modal(document.getElementById('replaceTeacherModal'));
+
+const replaceTeacherForm = document.getElementById('replaceTeacherForm');
+
+function replaceTeacher(idTeacher) {
+
+    getDataTeacher(idTeacher, 'nameTeacherReplace')
+
+    let listTeacher = listTeachers()
+
+    const select = document.querySelector('#newTeacher');
+
+    let li = ''
+    if (listTeacher) {
+        listTeacher.forEach((elem, indice) => {
+            //li += `<li><a class="dropdown-item" href="#" onclick="listDisciplinesTeacher(${elem.id})">${indice + 1} - ${elem.name}</a></li>`
+            select.options[select.options.length] = new Option(elem.name, elem.id);
+        })
+
+    }
+
+    //return li;
+
+    //listTeacher = response.data;
+    document.getElementById('li_teacher_replace').innerHTML = list(listTeacher)
+
+                //const optionShift = data[0].shift;
+
+                if (select.options.length > 1) {
+                    document.querySelector('#shift option[value=M]').remove();
+                    document.querySelector('#shift option[value=T]').remove();
+                }
+
+    //document.getElementById('amount_teachers').innerHTML = `  + ${listTeacher.length}`
+
 }

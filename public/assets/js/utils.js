@@ -13,7 +13,8 @@ const URIS = {
     teacher: {
         create: "teacher/create",
         update: "teacher/update",
-        delete: "teacher/del"
+        delete: "teacher/del",
+        list: "teacher/list"
     },
     schedule: {
         delete: "horario/api/del",

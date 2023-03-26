@@ -20,6 +20,7 @@ echo $this->section('content');
   <?php include('teacher/modal/add.html'); ?>
   <?php include('teacher/modal/edit.html'); ?>
   <?php include('teacher/modal/delete.html'); ?>
+  <?php include('teacher/modal/replace.html'); ?>
 
   <?php include('teacher-discipline/modal/add.html'); ?>
   <?php include('teacher-discipline/modal/edit.html'); ?>
