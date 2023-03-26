@@ -10,13 +10,16 @@ echo $this->section('content');
       <?php include('series/menu-widget.html'); ?>
       <?php include('series/content.html'); ?>
       <div class="row my-4"></div>
-      <?php include('footer.html'); ?>
+      <?php //include('footer.html'); ?>
     </div>
   </main>
+
 
   <?php //include('config.html'); 
   ?>
 
+  <?php include('series/modal/edit.html'); ?>
+  <?php include('series/modal/delete.html'); ?>
   <?php //include('series/modal/add.html'); ?>
   <?php //include('series/modal/delete.html'); ?>
   <?php //include('series/modal/list-series.html'); ?>

@@ -38,7 +38,8 @@
   width: 100%;
   margin-top: 0.25rem;
   font-size: .875em;
-  color: #da0d0d;
+  color: #a81212;
+  opacity: 0.8;
 }
 
 .ticket {

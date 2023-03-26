@@ -10,7 +10,7 @@ echo $this->section('content');
       <?php include('discipline/menu-widget.html'); ?>
       <?php include('discipline/content.html'); ?>
       <div class="row my-4"></div>
-      <?php include('footer.html'); ?>
+      <?php //include('footer.html'); ?>
     </div>
   </main>
 

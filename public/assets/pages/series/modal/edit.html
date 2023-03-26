@@ -1,0 +1,77 @@
+<div class="modal fade" id="editSeriesModal" tabindex="-1" role="dialog" aria-labelledby="editSeriesModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="card card-plain">
+                    <div class="card-header pb-0 text-left">
+                        <h3 class="font-weight-bolder text-primary text-gradient"> <i class="fa fa-pencil"></i>
+                            Série ::</h3>
+                        <p class="mb-0">Entre com os dados para editar a série.</p>
+                    </div>
+                    <div class="card-body pb-3">
+                        <form role="form text-left" method="post" action="series/update" id="editSeriesForm">
+                            <input type="text" name="id" id="idSerieEdit">
+                            <span id="msgAlertErrorEditSerie"></span>
+                            <div class="row">
+                              <div class="col">
+                                <label class="col-form-label">Descrição :: <span class="error invalid-feedback"
+                                    id="fieldAlertErrorDescriptionSeriesEdit"></span>
+                                  <span class="error invalid-feedback" id="fieldAlertDuplicativeEdit"></span></label>
+                                <div class="input-group mb-3">
+                                  <input type="text" name="description" class="form-control"
+                                    onfocus="eraseAlert(['fieldAlertErrorDescriptionSeriesEdit','msgAlertErrorSeries','fieldAlertDuplicativeEdit']);"
+                                    id="descriptionEdit" placeholder="Ex.: 6, 7, 8, ..." aria-label="name" aria-describedby="name">
+                  
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col">
+                                <label class="col-form-label">Turma :: <span class="error invalid-feedback"
+                                    id="fieldAlertErrorTurmaEdit"></span></label>
+                                <div class="input-group mb-3">
+                                  <input type="text" name="classification" class="form-control"
+                                    onfocus="eraseAlert('fieldAlertErrorTurmaEdit');" id="classificationEdit" placeholder="Ex.: A, B, C, ..."
+                                    aria-label="turma" aria-describedby="turma">
+                  
+                                </div>
+                  
+                              </div>
+                            </div>
+                  
+                            <div class="row">
+                              <div class="col">
+                                <label class="col-form-label">Turno :: <span class="error invalid-feedback"
+                                    id="fieldAlertErrorTurno"></span></label>
+                  
+                                <div class="input-group mb-3">
+                                  <select class="form-control" name="shift" id="shift" onfocus="eraseAlert('fieldAlertErrorTurno');">                                  
+                                   
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col">
+                                <label class="col-form-label">Ano letivo :: <span class="error invalid-feedback"
+                                    id="fieldAlertErrorTurno"></span></label>
+                                <input type="text" class="form-control" value="2023" disabled>
+                                <input type="hidden" name="id_year_school" class="form-control" value="1">
+                                <input type="hidden" name="status" value="A">
+                  
+                              </div>
+                  
+                            </div>
+                  
+                            <div class="text-center">
+                              <button type="submit" class="btn bg-gradient-primary btn-lg btn-rounded w-100 mt-4 mb-0">Salvar</button>
+                              <button type="button" class="btn btn-link  ml-auto" data-bs-dismiss="modal">Sair</button>
+                            </div>
+                          </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

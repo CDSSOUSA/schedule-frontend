@@ -269,6 +269,7 @@ if (delDisciplineForm) {
                     document.getElementById('msgAlertErrorDisciplineDelete').innerHTML = response.data.msg                  
                 } else {
 
+                    console
                     
                     delDisciplineForm.reset();
                     delDisciplineModal.hide()
