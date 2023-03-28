@@ -386,7 +386,7 @@ div.dataTables_wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 1)
+  background-color: rgba(0, 0, 0, 0.712)
 }
 .ring {
   position: absolute;
@@ -421,7 +421,8 @@ div.dataTables_wrapper {
 }
 
 .loa {
-  color: #344767;
+  color: #020914;
+  font-weight: bold;
   font-size: 16px;  
   letter-spacing: 1px;
   line-height: 200px;
@@ -429,20 +430,20 @@ div.dataTables_wrapper {
 }
 @keyframes text {
   50% {
-    color: #000;
+    color: rgb(16, 24, 112);
   }
 }
 
 
 .ellipsis{
   display: inline-block;
-  position: relative;
-  width: 64px;
-  height: 64px;
+  position: absolute;
+  width: 200px;
+  height: 200px;
   border: 8px solid rgba(0, 0, 0, 0.4);
   border-left-color: #2e5b8e;
   border-radius: 50%;
-  animation: loading 1s linear infinite;
+  animation: loading 2s linear infinite;
 
 }
 @keyframes loading {
@@ -450,6 +451,16 @@ div.dataTables_wrapper {
     transform: rotate(360deg);
   }
   
+}
+.ellipsis:before{
+  position: absolute;
+  content: '';
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
 }
 /* @keyframes is-rotating {
   to {

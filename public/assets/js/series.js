@@ -11,6 +11,7 @@ let shiftGlobal
 listSeries();
 
 async function listSeries() {
+    showLoading()
     idSerie = localStorage.getItem('idSeriesStorege');
     console.log('carregando localstorage no lisSeries' + idSerie)
     await axios.get(`${URL_BASE}/series/list`)

@@ -2,6 +2,7 @@ var idDiscipline = localStorage.getItem('idDisciplineStorege');
 listDisciplines();
 
 async function listDisciplines() {
+    showLoading()
     idDiscipline = localStorage.getItem('idDisciplineStorege');
     await axios.get(`${URL_BASE}/${URIS.discipline.list}`)
         .then(response => {

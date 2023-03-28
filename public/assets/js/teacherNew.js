@@ -33,12 +33,13 @@ if (idTeacherStorege == null) {
 // }
 
 
-hideLoading();
+
 
 listDisciplinesTeacher(localStorage.getItem('idTeacher'));
 
 
 async function listDisciplinesTeacher(idTeacher) {
+    showLoading()
     await axios.get(`${URL_BASE}/teacher/listDisciplinesByTeacher/${idTeacher}`)
         .then(response => {
             const data = response.data;
@@ -58,6 +59,7 @@ async function listDisciplinesTeacher(idTeacher) {
 
             //list
             listAllocationTeacherDisciplineAll(idTeacher)
+            hideLoading()
             listDisciplines()
 
 

@@ -10,6 +10,10 @@ const URL_BASE = 'http://localhost/gerenciador-horario/public';
 const URL_FRONT = 'http://localhost/schedule-frontend/public';
 
 const URIS = {
+    login: {
+        in: "login",
+        out: "logout"
+    },
     teacher: {
         create: "teacher/create",
         update: "teacher/update",
@@ -60,21 +64,23 @@ console.log(urlParams[3])
 //     console.log(el)
 // })
 
-async function showLoading(){
-    // const div = document.createElement("div")
-    // div.classList.add("loadOi");
-    // div.setAttribute("id","loadOi");
-    // const divi = document.createElement("div")
-    // divi.classList.add("ring");
+function showLoading(){
+    const div = document.createElement("div")
+    div.classList.add("loadOi");
+    div.setAttribute("id","loadOi");
+    div.style.display = "flex"
+    
+    const divi = document.createElement("div")
+    divi.classList.add("ellipsis");
 
-    // const span = document.createElement("span")
-    // span.classList.add("loa")
-    // span.innerText = "Carregando ..."
+    const span = document.createElement("span")
+    span.classList.add("loa")
+    span.innerText = "Carregando ..."
     // const label = document.createElement("label");
     // label.innerText = "Carregando..."
-    // div.appendChild(divi);
-    // div.appendChild(span);
-    // document.body.appendChild(div)
+    div.appendChild(divi);
+    div.appendChild(span);
+    document.body.appendChild(div)
     //const loadings = document.getElementsByClassName("page-loader-wrapper")
    // alert('oi')
 
@@ -84,15 +90,15 @@ async function showLoading(){
   <span class="loa"> Atualizando... </span>    
 </div>   */
 
-   const load = document.getElementById('loadOi').style.display = "flex";
+   //const load = document.getElementById('loadOi').style.display = "flex";
 }
 
-async function hideLoading(){
+function hideLoading(){
     // const loadings = document.getElementsByClassName("page-loader-wrapper")
     // if(loadings.length) {
     //     loadings[0].remove()
     // }
-    const load = document.getElementById('loadOi').style.display = "none";
+    document.getElementById('loadOi').remove();
 }
 
 const loadMenu = () => {

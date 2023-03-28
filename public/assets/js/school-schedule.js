@@ -22,7 +22,7 @@ var shiftGlobal = '';
 listSchedule(localStorage.getItem('shift'))
 
 async function listSchedule(shift) {    
-    await showLoading()
+    showLoading()
     console.log(localStorage.getItem('totalScheduleStorage'))
     shiftGlobal = shift
     document.getElementById('define-shift-heard').textContent = convertShift(shift)
