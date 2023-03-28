@@ -17,17 +17,18 @@ var shiftLocalStorage = localStorage.getItem('shift')
 //localStorage.setItem('idTeacher', localStorage.getItem('idEndTeacher'))
 //let shiftLocalStorage = localStorage.setItem('shift',shiftEscolha)/
 //const shift = 
-
+//
 var shiftGlobal = '';
 listSchedule(localStorage.getItem('shift'))
 
-async function listSchedule(shift) {
+async function listSchedule(shift) {    
+    await showLoading()
     console.log(localStorage.getItem('totalScheduleStorage'))
     shiftGlobal = shift
     document.getElementById('define-shift-heard').textContent = convertShift(shift)
     document.getElementById('define-shift-menu').textContent = convertShift(shift)
     await axios.get(`${URL_BASE}/horario/api/list/${shift}`)
-        .then(response => {
+        .then(response => {          
             const data = response.data;
             console.log(data);
             listSeries(shift)
@@ -47,6 +48,7 @@ async function listSchedule(shift) {
             //     //<i class="fa fa-print"></i> Imprimir </a>`
             //     document.getElementById('btn_print_schedule').removeAttribute('onclick', `printReportSchedule('${shift}')`)
             // }
+            hideLoading();
            
         }
         )
@@ -342,7 +344,9 @@ if (addScheduleForm) {
                     loadToast(typeSuccess, titleSuccess, messageSuccess);
                     //loada();
                     //location.reload();
-                    listSchedule(dataForm.get('nShift'));
+                    //listSchedule(dataForm.get('nShift'));
+                    listSeries(dataForm.get('nShift'))
+                    listDPS(dataForm.get('nSerie'), dataForm.get('nDayWeek'),dataForm.get('nPosition'), dataForm.get('nShift'))
                 }
             })
             .catch(error => console.log(error))
@@ -393,6 +397,9 @@ async function delScheduleTeacher(id) {
                 document.getElementById('positonDel').innerText = `${data.position} ª AULA - `
                 document.getElementById('dayWeekDel').innerText = `${convertDayWeek(data.dayWeek, true)}`
                 document.getElementById('shiftDel').value = data.shift
+                document.getElementById('dayWeekDel').value = data.dayWeek
+                document.getElementById('positionDel').value = data.position
+                document.getElementById('idSerieDelete').value = data.id_series
                 document.getElementById('idScheduleTeacherDel').value = data.id_teacher
                 document.getElementById('color').style.backgroundColor = data.color
                 //document.getElementById('headerScheduleRemove').style.backgroundColor = data.color
@@ -435,7 +442,10 @@ if (deleteScheduleForm) {
                     localStorage.setItem('idTeacher', dataForm.get('idTeacher'))
 
                     loadToast(typeSuccess, titleSuccess, messageSuccess);
-                    listSchedule(dataForm.get('shiftDel'))
+                    //listSchedule(dataForm.get('shiftDel'))
+                    listSeries(dataForm.get('shiftDel'))
+                    listDPS(dataForm.get('idSerie'), dataForm.get('dayWeekDel'),dataForm.get('positionDel'), dataForm.get('shiftDel'))
+            
 
                 }
             })

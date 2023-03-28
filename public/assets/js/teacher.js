@@ -18,9 +18,11 @@ async function listTeacDisc() {
             console.log(data);
             document.querySelector("#tb_teacher > tbody").innerHTML = `${loadDataTeacher(data)}`;
             //loadDataTable(data)
+            hideLoading();
         }
         )
         .catch(error => console.log(error))
+        
 }
 
 function loadDataTeacher(data) {

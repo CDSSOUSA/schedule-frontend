@@ -33,7 +33,7 @@ if (idTeacherStorege == null) {
 // }
 
 
-
+hideLoading();
 
 listDisciplinesTeacher(localStorage.getItem('idTeacher'));
 
@@ -50,13 +50,13 @@ async function listDisciplinesTeacher(idTeacher) {
             getDataTeacher(idTeacher, 'nameTeacherButton')
             listAllocationTeacherDiscipline(idTeacher)
 
-            let listTeacher = listTeachers()
+            listTeachers()
 
             //listTeacher = response.data;
-            document.getElementById('li_teacher').innerHTML = list(listTeacher.data)
-            document.getElementById('amount_teachers').innerHTML = `  + ${listTeacher.length}`
+            //document.getElementById('li_teacher').innerHTML = list(listTeacher.data)
+            //document.getElementById('amount_teachers').innerHTML = `  + ${listTeacher.length}`
 
-            list
+            //list
             listAllocationTeacherDisciplineAll(idTeacher)
             listDisciplines()
 
@@ -90,11 +90,13 @@ async function listDisciplines() {
 async function listTeachers() {
     await axios.get(`${URL_BASE}/${URIS.teacher.list}`)
         .then(response => {
+            const data = response.data;
+            //return data
             // const data = response.data;
             // console.log(data);
             // console.log(data.length)
-            // document.getElementById('li_teacher').innerHTML = list(data)
-            // document.getElementById('amount_teachers').innerHTML = `  + ${data.length}`
+             document.getElementById('li_teacher').innerHTML = list(data)
+             document.getElementById('amount_teachers').innerHTML = `  + ${data.length}`
             //document.querySelector("#tb_teacher > tbody").innerHTML = `${loadDataTeacher(data)}`;
             //loadDataTable(data)
         }
@@ -1301,35 +1303,77 @@ const replaceTeacherModal = new bootstrap.Modal(document.getElementById('replace
 
 const replaceTeacherForm = document.getElementById('replaceTeacherForm');
 
-function replaceTeacher(idTeacher) {
+async function replaceTeacher(idTeacher) {
 
-    getDataTeacher(idTeacher, 'nameTeacherReplace')
+    document.getElementById('msgAlertErrorTeacherReplace').innerHTML = '';
+    console.log("id do teacher: "+ idTeacher)
+    replaceTeacherForm.reset()
 
-    let listTeacher = listTeachers()
+    document.getElementById('idTeacherReplace').value = idTeacher
 
-    const select = document.querySelector('#newTeacher');
 
-    let li = ''
-    if (listTeacher) {
-        listTeacher.forEach((elem, indice) => {
-            //li += `<li><a class="dropdown-item" href="#" onclick="listDisciplinesTeacher(${elem.id})">${indice + 1} - ${elem.name}</a></li>`
-            select.options[select.options.length] = new Option(elem.name, elem.id);
-        })
-
+    let select = document.querySelector('#newTeacher');    
+    
+    while(select.length){
+        select.remove(0);
     }
+    select = document.querySelector('#newTeacher'); 
+   
+    getDataTeacher(idTeacher, 'nameTeacherReplace')    
+    
+    
+    select.options[select.options.length] = new Option('Selecione ...', '');
+    await axios.get(`${URL_BASE}/${URIS.teacher.listOff}/${idTeacher}`)
+    .then(response => {
+        response.data.forEach((el,index)=>{
+            
+            select.options[select.options.length] = new Option(`${index + 1} - ${el.name}`, el.id);
+        })
+       
+    })
+    .catch(error => console.log(error))   
 
-    //return li;
+}
 
-    //listTeacher = response.data;
-    document.getElementById('li_teacher_replace').innerHTML = list(listTeacher)
+if (replaceTeacherForm) {
 
-                //const optionShift = data[0].shift;
+    replaceTeacherForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-                if (select.options.length > 1) {
-                    document.querySelector('#shift option[value=M]').remove();
-                    document.querySelector('#shift option[value=T]').remove();
-                }
+        const dataForm = new FormData(replaceTeacherForm);
 
-    //document.getElementById('amount_teachers').innerHTML = `  + ${listTeacher.length}`
+        await axios.post(`${URL_BASE}/${URIS.schedule.replace}`, dataForm, {
 
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(response => {
+            console.log(response.data)
+            if (response.data.error) {
+                document.getElementById('msgAlertErrorTeacherReplace').innerHTML = response.data.msg
+                // document.getElementById('fieldlertError').textContent = 'Preenchimento obrigatório!'
+                // document.getElementById("msgAlertSuccess").innerHTML = "";
+            } else {
+                // console.log('deu certo')
+                 document.getElementById('msgAlertErrorTeacherReplace').innerHTML = '';
+                // document.getElementById('fieldlertError').textContent = '';
+                // //editModal.hide();
+                // document.getElementById('msgAlertSuccess').innerHTML = response.data.msg
+                replaceTeacherModal.hide();
+                //localStorage.removeItem('idEndTeacher');
+                //localStorage.setItem('idEndTeacher', dataForm.get('idTeacher'))
+               // localStorage.setItem('idTeacher', dataForm.get('idTeacher'))
+
+                loadToast(typeSuccess, titleSuccess, messageSuccess);
+                listDisciplinesTeacher(localStorage.getItem('idTeacher'))
+
+            }
+        })
+        .catch(error => {
+            console.log(error)
+        })
+        console.log(dataForm.get('newTeacher'))
+        console.log(dataForm.get('idTeacher'))
+    })
 }

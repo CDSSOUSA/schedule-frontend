@@ -14,12 +14,14 @@ const URIS = {
         create: "teacher/create",
         update: "teacher/update",
         delete: "teacher/del",
-        list: "teacher/list"
+        list: "teacher/list",
+        listOff: "teacher/listOff"
     },
     schedule: {
         delete: "horario/api/del",
         listDiscipline: 'horario/api/listDisciplines',
-        listSeries: "horario/api/listSeries"
+        listSeries: "horario/api/listSeries",
+        replace: "horario/api/replace"
         
     },
     discipline: {
@@ -58,6 +60,40 @@ console.log(urlParams[3])
 //     console.log(el)
 // })
 
+async function showLoading(){
+    // const div = document.createElement("div")
+    // div.classList.add("loadOi");
+    // div.setAttribute("id","loadOi");
+    // const divi = document.createElement("div")
+    // divi.classList.add("ring");
+
+    // const span = document.createElement("span")
+    // span.classList.add("loa")
+    // span.innerText = "Carregando ..."
+    // const label = document.createElement("label");
+    // label.innerText = "Carregando..."
+    // div.appendChild(divi);
+    // div.appendChild(span);
+    // document.body.appendChild(div)
+    //const loadings = document.getElementsByClassName("page-loader-wrapper")
+   // alert('oi')
+
+/* <div class="loadOi" id="loadOi">
+  <div class="ring">
+  </div>
+  <span class="loa"> Atualizando... </span>    
+</div>   */
+
+   const load = document.getElementById('loadOi').style.display = "flex";
+}
+
+async function hideLoading(){
+    // const loadings = document.getElementsByClassName("page-loader-wrapper")
+    // if(loadings.length) {
+    //     loadings[0].remove()
+    // }
+    const load = document.getElementById('loadOi').style.display = "none";
+}
 
 const loadMenu = () => {
     let area = [

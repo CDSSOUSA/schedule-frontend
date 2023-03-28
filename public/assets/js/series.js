@@ -21,6 +21,7 @@ async function listSeries() {
             document.getElementById('li_series').innerHTML = list(data)
             document.getElementById('amount_series').innerHTML = `  + ${data.length}`
             showSeries(idSerie)
+            hideLoading();
         }
         )
         .catch(error => console.log(error))

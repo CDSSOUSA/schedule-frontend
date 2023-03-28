@@ -12,18 +12,16 @@
           </div>
           <div class="card-body pb-3">
             <form role="form text-left" method="post" action="teacher/replace" id="replaceTeacherForm">
-              <span id="msgAlertErrorTeacherR"></span>
+              <input type="text" id="idTeacherReplace" name="idTeacher">
+              <span id="msgAlertErrorTeacherReplace"></span>
               <div class="row">
                 <div class="col">
-                  <label class="col-form-label">Novo professor :: <span class="error invalid-feedback"
+                  <label class="col-form-label">Novo professor (a) :: <span class="error invalid-feedback"
                       id="fieldAlertErrorNewTeacher"></span></label>
                   <div class="input-group mb-3">
                     <select name="newTeacher" class="form-control"
                       onfocus="eraseAlert(['fieldAlertErrorNewTeacher','msgAlertError']);" id="newTeacher">
-                      <option value="">Selecione ...</option>
-                      <option value="icon-artes.png">Artes</option>
-                      <option value="icon-biologia.png">Biologia</option>
-                      <option value="icon-ciencias.png">Ciências</option>
+                     
                     </select>
                   </div>
                 </div>

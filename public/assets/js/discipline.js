@@ -10,10 +10,12 @@ async function listDisciplines() {
             document.getElementById('li_disciplines').innerHTML = list(data)
             document.getElementById('amount_disciplines').innerHTML = `  + ${data.length}`
             showDisciplines(idDiscipline)
+            hideLoading();
             
         }
         )
         .catch(error => console.log(error))
+       
 
 }
 
