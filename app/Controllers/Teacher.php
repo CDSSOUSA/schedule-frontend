@@ -16,7 +16,11 @@ class Teacher extends BaseController
 
          //echo "<script>document.write(sessionStorage.setItem('auth_Token', '".$this->generateJWT()."'))</script>";
 
-        setcookie("token", $this->generateJWT());
+        
+         
+         setcookie("token", $this->generateJWT());
+
+
         return view('teacher');
 
         //return $this->generateJWT();
@@ -60,6 +64,7 @@ class Teacher extends BaseController
     protected function validateToken($token)
     {
         $dados = explode('.', $token);
+       
 
         $header = $dados[0];
         $payload = $dados[1];
@@ -72,8 +77,8 @@ class Teacher extends BaseController
         
         if ($signature == $validate && $time_exp->exp > time()) {            
             
-            return 'success';
+            return true;
         }
-        return 'falso';
+        return false;
     }
 }

@@ -4,7 +4,8 @@ const URL_FRONT = 'http://localhost/schedule-frontend/public';
 const URIS = {
     login: {
         in: "login",
-        out: "logout"
+        out: "logout",
+        validate: "login/validate"
     },
     teacher: "teacher"
 }
@@ -37,23 +38,90 @@ if (loginForm) {
             })
                 .then(response => {
                     if (response.data.error) {
-                        
+
                         console.log('errro')
                         document.getElementById('msgAlert').innerHTML = response.data.msg
                         document.getElementById('msgAlertToken').textContent = response.data.msgs.token
-    
-                    } else{
+                        
 
-                        loadMain();
+                    } else {
+                        axios.post(`${URL_BASE}/${URIS.login.validate}`, {}, {
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": response.data.tokenNew,
+                            }
+                        }
+                        )
+                            .then(res => {
+
+                                loadMain();
+                                //return
+                                console.log(res.data)
+
+                            })
+                            .catch(error => {
+
+                                loadToast(typeError,titleError,messageError)
+                                //console.log(error)
+                                //redirectLogin()
+                            })
+
+                        //redirectLogin()
+
                     }
                 })
-                .catch(error => console.log(error))
+                .catch(
+                    error => {
+                        loadToast(typeError,titleError,messageError)
+                        console.log(error)
+                    })
         } catch (error) {
 
         }
     })
 }
 
-const loadMain = () =>{
+const loadMain = () => {
     window.location.href = `${URL_FRONT}/${URIS.teacher}`
+}
+const redirectLogin = () => {
+    window.location.href = `${URL_FRONT}/${URIS.login.out}`
 } 
+var typeError = 'error';
+var titleError = '<strong class="me-auto">OPS!</strong>';
+var messageError = '<i class="bi bi-hand-thumbs-down-fill"></i> Ocorreu um erro, tente novamente.';
+
+const loadToast = (type, title, message) => {
+
+    // let toast = {
+    //     title: title,
+    //     message: body,
+    //     status: status,
+    //     timeout: 8000
+    // }
+    // Toast.create(toast);
+    // Toast.setPlacement(TOAST_PLACEMENT.MIDDLE_CENTER);
+    // Toast.setTheme(TOAST_THEME.DARK);
+    // Toast.enableTimers(false);
+    // $('.toast').on('hidden.bs.toast', e => {
+    //     $(e.currentTarget).remove();
+    //     //location.reload();
+    //     //listYearSchool();
+    //     //stopLoad();
+    // });
+    // new bootstrap.Toast(document.querySelector('#basicToast'), {
+    //     animation: true,
+    //     autohide: true,
+    //     delay: 2000,        
+    //   }).show();
+    //$('#basicToast').toast('show',{delay: 2000});
+    // $('#basicToast').toast('show');
+
+    cuteAlert({
+        type: type,
+        title: title,
+        message: message,
+        buttonText: false,
+        timer: 10000
+    })
+}

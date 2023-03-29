@@ -1,6 +1,6 @@
 <?php
 echo $this->extend('layout/default');
-echo $this->section('content');
+echo $this->section('content');  
 
 ?> 
 
@@ -40,3 +40,4 @@ echo $this->section('content');
 
 
   <?= $this->endSection();
+

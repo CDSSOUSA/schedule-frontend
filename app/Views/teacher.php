@@ -1,6 +1,15 @@
 <?php
 echo $this->extend('../../public/assets/pages/layout/default');
 echo $this->section('content');
+
+        
+         //$validate = $this->validateToken($cookie);
+
+        //  if(!$validate) {
+        //     $login = new Login();
+        //     return $login->index();
+        //  }
+
 ?> 
 
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">

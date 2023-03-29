@@ -11,6 +11,7 @@ if (idTeacherStorege == null) {
     localStorage.setItem('idTeacher', localStorage.getItem('idEndTeacher'))
 }
 
+console.log(Cookies.get("tokens"));
 
 //var idTeacheDiscipline = 11;
 
@@ -455,7 +456,7 @@ function addTeacher() {
     document.getElementById('fieldlertErrordisciplines').innerHTML = ''
     document.getElementById('fieldlertErrorcolor').innerHTML = ''
 
-    console.log(Cookies.get("token"));
+
 
     addTeacherForm.reset();
 
