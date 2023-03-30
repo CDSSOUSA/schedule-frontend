@@ -6,48 +6,6 @@ var typeError = 'error';
 var titleError = '<strong class="me-auto">OPS!</strong>';
 var messageError = '<i class="bi bi-hand-thumbs-down-fill"></i> Ocorreu um erro, tente novamente.';
 
-const URL_BASE = 'http://localhost/gerenciador-horario/public';
-const URL_FRONT = 'http://localhost/schedule-frontend/public';
-
-const URIS = {
-    login: {
-        in: "login",
-        out: "logout"
-    },
-    teacher: {
-        create: "teacher/create",
-        update: "teacher/update",
-        delete: "teacher/del",
-        list: "teacher/list",
-        listOff: "teacher/listOff"
-    },
-    schedule: {
-        delete: "horario/api/del",
-        listDiscipline: 'horario/api/listDisciplines',
-        listSeries: "horario/api/listSeries",
-        replace: "horario/api/replace"
-        
-    },
-    discipline: {
-        create: "discipline/create",
-        update: "discipline/update",
-        list: "discipline/list",
-        show: "discipline/show",
-        delete: "discipline/del",
-    },
-    series: {
-        create: "series/create",
-        update: "series/update",
-        show: "series/show",
-        active: "series/active",
-        list: {
-            shift:"series/list/shift"
-        }
-    },
-    report: {
-        series: "report/series"
-    }
-}
 
 const urlParams = window.location.pathname.split('/');
 //const shift = urlParams[5]
@@ -112,7 +70,7 @@ const loadMenu = () => {
         document.getElementById(`menu-${el}`).setAttribute('href', `${URL_FRONT}/${el}`);
         
     })    
-    document.getElementById('menu-home').setAttribute('href', `${URL_FRONT}/`);
+    document.getElementById('menu-home').setAttribute('href', `${URL_FRONT}/home`);
 }
 
 loadMenu()

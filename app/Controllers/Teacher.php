@@ -18,7 +18,8 @@ class Teacher extends BaseController
 
         
          
-         setcookie("token", $this->generateJWT());
+         //setcookie("token", $this->generateJWT());
+         
 
 
         return view('teacher');
@@ -29,56 +30,56 @@ class Teacher extends BaseController
         //return $this->validateToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Nzk1MzI0MDYsImV4cCI6MTY3OTUzMjQ2Nn0=.GV7B8XdtXHWSjYZiIaB7dvM0IwrwASdPnduhzhkfWAI=');
     }
 
-    protected function generateJWT()
-    {
-        $key = Services::getSecretKey();
-        $time = time();
+    // protected function generateJWT()
+    // {
+    //     $key = Services::getSecretKey();
+    //     $time = time();
 
-        $header = [
-            'alg' => 'HS256',
-            'typ' => 'JWT'
-        ];
+    //     $header = [
+    //         'alg' => 'HS256',
+    //         'typ' => 'JWT'
+    //     ];
 
-        $h = base64_encode(json_encode($header));
+    //     $h = base64_encode(json_encode($header));
 
-        $payload = [
-            //'aud' => base_url(),
-            'iat' => $time,
-            'exp' => $time + 60,
-            // 'data'=> [
-            //     'login' => $usuario['login'],
-            //     'id_system' => $usuario['id_system']
-            // ]
-        ];
+    //     $payload = [
+    //         //'aud' => base_url(),
+    //         'iat' => $time,
+    //         'exp' => $time + 60,
+    //         // 'data'=> [
+    //         //     'login' => $usuario['login'],
+    //         //     'id_system' => $usuario['id_system']
+    //         // ]
+    //     ];
 
-        //$jwt = JWT::encode($payload,$key, 'HS256');
-        $p = base64_encode(json_encode($payload));
+    //     //$jwt = JWT::encode($payload,$key, 'HS256');
+    //     $p = base64_encode(json_encode($payload));
 
-        $s = base64_encode(hash_hmac('sha256', $h . '.' . $p, $key, true));
+    //     $s = base64_encode(hash_hmac('sha256', $h . '.' . $p, $key, true));
 
-        $jwt = $h . "." . $p . "." . $s;
+    //     $jwt = $h . "." . $p . "." . $s;
 
-        return $jwt;
-    }
+    //     return $jwt;
+    // }
 
-    protected function validateToken($token)
-    {
-        $dados = explode('.', $token);
+    // protected function validateToken($token)
+    // {
+    //     $dados = explode('.', $token);
        
 
-        $header = $dados[0];
-        $payload = $dados[1];
-        $signature = $dados[2];
+    //     $header = $dados[0];
+    //     $payload = $dados[1];
+    //     $signature = $dados[2];
 
-        $key = Services::getSecretKey();
+    //     $key = Services::getSecretKey();
 
-        $validate = base64_encode(hash_hmac('sha256', $header . '.' . $payload, $key, true));
-        $time_exp = json_decode(base64_decode($payload));      
+    //     $validate = base64_encode(hash_hmac('sha256', $header . '.' . $payload, $key, true));
+    //     $time_exp = json_decode(base64_decode($payload));      
         
-        if ($signature == $validate && $time_exp->exp > time()) {            
+    //     if ($signature == $validate && $time_exp->exp > time()) {            
             
-            return true;
-        }
-        return false;
-    }
+    //         return true;
+    //     }
+    //     return false;
+    // }
 }

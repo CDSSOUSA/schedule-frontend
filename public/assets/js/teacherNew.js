@@ -11,7 +11,7 @@ if (idTeacherStorege == null) {
     localStorage.setItem('idTeacher', localStorage.getItem('idEndTeacher'))
 }
 
-console.log(Cookies.get("tokens"));
+
 
 //var idTeacheDiscipline = 11;
 
@@ -38,11 +38,29 @@ console.log(Cookies.get("tokens"));
 
 listDisciplinesTeacher(localStorage.getItem('idTeacher'));
 
+async function validateToken (token){
+    await axios.post(`${URL_BASE}/${URIS.login.validate}`, {}, {
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": token,
+        }
+    })
+    .then(res => {
+        
+    })
+    .catch(error => {
+        loadToast(typeError,titleError,messageError)
+        loadLogin()
+    })
+}
 
 async function listDisciplinesTeacher(idTeacher) {
     showLoading()
     await axios.get(`${URL_BASE}/teacher/listDisciplinesByTeacher/${idTeacher}`)
         .then(response => {
+
+            validateToken(response.data[0].token)
+
             const data = response.data;
             console.log(data);
             if (data) {
@@ -418,7 +436,7 @@ function loadDataSchedule(data) {
 
 async function getDataTeacher(id, locale) {
 
-    await axios.get(`${URL_BASE}/teacher/show/${id}`)
+    await axios.get(`${URL_BASE}/${URIS.teacher.show}/${id}`)
         .then(response => {
             const data = response.data;
 

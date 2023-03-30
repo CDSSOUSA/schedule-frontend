@@ -1,15 +1,3 @@
-const URL_BASE = 'http://localhost/gerenciador-horario/public';
-const URL_FRONT = 'http://localhost/schedule-frontend/public';
-
-const URIS = {
-    login: {
-        in: "login",
-        out: "logout",
-        validate: "login/validate"
-    },
-    teacher: "teacher"
-}
-
 const eraseAlert = (option) => {
 
     if (typeof option == 'string') {
@@ -54,7 +42,7 @@ if (loginForm) {
                         )
                             .then(res => {
 
-                                loadMain();
+                                loadMain(response.data.tokenNew);
                                 //return
                                 console.log(res.data)
 
@@ -81,8 +69,8 @@ if (loginForm) {
     })
 }
 
-const loadMain = () => {
-    window.location.href = `${URL_FRONT}/${URIS.teacher}`
+const loadMain = (token) => {
+    window.location.href = `${URL_FRONT}/home?token=${token}`
 }
 const redirectLogin = () => {
     window.location.href = `${URL_FRONT}/${URIS.login.out}`
@@ -122,6 +110,6 @@ const loadToast = (type, title, message) => {
         title: title,
         message: message,
         buttonText: false,
-        timer: 10000
+        timer: 3000
     })
 }

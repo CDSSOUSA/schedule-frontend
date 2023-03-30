@@ -190,20 +190,20 @@ if (editDisciplineForm) {
         await axios.post(`${URL_BASE}/${URIS.discipline.update}`, dataForm, {
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": Cookies.get("token"),
+                //"Authorization": Cookies.get("token"),
             }
         })
             .then(response => {              
                 
                 if (response.data.error) {    
-                    if(response.data.code == 500) {
+                    // if(response.data.code == 500) {
 
-                        editDisciplineForm.reset();
-                        editDisciplineModal.hide();
-                        loadToast(typeError, titleError, messageError);
-                        listDisciplines();
+                    //     editDisciplineForm.reset();
+                    //     editDisciplineModal.hide();
+                    //     loadToast(typeError, titleError, messageError);
+                    //     listDisciplines();
 
-                    }               
+                    // }               
                     //Exibe os erros no preechimento do formulário
                     document.getElementById('msgAlertErrorDisciplineEdit').innerHTML = response.data.msg                                
                     validateErros(response.data.msgs.description, 'fieldAlertErrorDescriptionDisciplineEdit')

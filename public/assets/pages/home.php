@@ -1,17 +1,23 @@
 <?php
 echo $this->extend('layout/default');
 echo $this->section('content');
-echo session()->get('tokenAuth');
+
+$uri = current_url(true)->getQuery();
+
+$tokenAuth = str_replace("token=", "", $uri);
+
+session()->set('tokenAuth',$tokenAuth)
+
 ?> 
 
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- Navbar -->
     <?php //include('breadcrumb.html'); ?>
     <div class="container-fluid py-4">
-      <?php include('series/menu-widget.html'); ?>
-      <?php include('series/content.html'); ?>
+      <?php //include('series/menu-widget.html'); ?>
+      <?php include('home/content.html'); ?>
       <div class="row my-4"></div>
-      <?php include('footer.html'); ?>
+      <?php //include('footer.html'); ?>
     </div>
   </main>
 
@@ -19,8 +25,8 @@ echo session()->get('tokenAuth');
   <?php //include('config.html'); 
   ?>
 
-  <?php include('series/modal/edit.html'); ?>
-  <?php include('series/modal/delete.html'); ?>
+  <?php //include('series/modal/edit.html'); ?>
+  <?php //include('series/modal/delete.html'); ?>
   <?php //include('series/modal/add.html'); ?>
   <?php //include('series/modal/delete.html'); ?>
   <?php //include('series/modal/list-series.html'); ?>
@@ -29,6 +35,6 @@ echo session()->get('tokenAuth');
 
   echo $this->section('script-js'); ?>
 
-  <script src="../public/assets/js/series.js"></script>
+  <script src="../public/assets/js/home.js"></script>
 
   <?= $this->endSection();
