@@ -5,6 +5,9 @@ var divLoader = document.querySelector('#loader');
 // var messageSuccess = '<i class="bi bi-hand-thumbs-up-fill"></i> Operação realizada com sucesso!';
 
 var idTeacherStorege = localStorage.getItem('idTeacher')
+var startDayWeek = localStorage.getItem('startDayWeek')
+var endDayWeek = localStorage.getItem('endDayWeek')
+var qtdePosition = localStorage.getItem('qtdePosition')
 
 
 if (idTeacherStorege == null) {
@@ -241,6 +244,7 @@ const listAllocationTeacherDiscipline = async (idTeacher) => {
                 //editModal.show();
                 //document.getElementById('idEdit').value = data[0].id
                 //document.getElementById('disc').innerHTML = `${listRowDisciplines(data)}`
+                defineRowsTable(startDayWeek,endDayWeek,qtdePosition,'#tb_allocationa > thead > tr')
                 document.querySelector("#tb_allocationa > tbody").innerHTML = `${loadDataSchedule(data)}`;
                 //document.getElementById('id_discipline').value = data[0].description
                 //document.getElementById('numeroAulas').value = data[0].amount
@@ -333,6 +337,7 @@ const listAllocationTeacherDisciplineChecked = async (idTeacher) => {
                 //editModal.show();
                 //document.getElementById('idEdit').value = data[0].id
                 //document.getElementById('disc').innerHTML = `${listRowDisciplines(data)}`
+                defineRowsTable(startDayWeek,endDayWeek,qtdePosition,'#tb_allocation_teacher_del > thead > tr')
                 document.querySelector("#tb_allocation_teacher_del > tbody").innerHTML = `${loadDataAllocationChecked(data)}`;
                 //document.getElementById('id_discipline').value = data[0].description
                 //document.getElementById('numeroAulas').value = data[0].amount
@@ -361,7 +366,7 @@ function loadDataAllocationChecked(data) {
 
     // let dayShow = '';
     // let rowColor = '';
-    for (let ps = 1; ps < 7; ps++) {
+    for (let ps = 1; ps <= qtdePosition; ps++) {
         row += `<tr>
         <td class="align-middle text-center"><span class="text-gray">${ps}ª aula</span>
         </td>`
@@ -369,7 +374,7 @@ function loadDataAllocationChecked(data) {
         // let dayShow = ps === 1 ? convertDayWeek(dw) : '';           
         // let rowColor = dw % 2 === 0 ? 'table-secondary' : 'table-success'
 
-        for (let dw = 2; dw < 7; dw++) {
+        for (let dw = startDayWeek; dw <= endDayWeek ; dw++) {
             row += `<td style="" class="text-center align-middle">`
 
             //row += `<th scope="row">${dw}${ps}</th>`
@@ -399,7 +404,7 @@ function loadDataSchedule(data) {
 
     // let dayShow = '';
     // let rowColor = '';
-    for (let ps = 1; ps < 7; ps++) {
+    for (let ps = 1; ps <= qtdePosition; ps++) {
         row += `<tr>
            <td scope="row" class="text-center align-middle w-120">
            ${ps}ª aula <p class="text-sm text-gray">${translateSchedule(ps, 'M')} 
@@ -411,27 +416,33 @@ function loadDataSchedule(data) {
         // let dayShow = ps === 1 ? convertDayWeek(dw) : '';           
         // let rowColor = dw % 2 === 0 ? 'table-secondary' : 'table-success'
 
-        for (let dw = 2; dw < 7; dw++) {
+        for (let dw = startDayWeek; dw <= endDayWeek ; dw++) {
             row += `<td style="" class="text-center align-middle">`
             //row += `<th scope="row">${dw}${ps}</th>`
 
             data.forEach((elem, indice) => {
                 if (elem.dayWeek == dw && elem.position == ps) {
 
-                    row += `<div class="avatar-group mt-2 text-center">
-                                <a href="#" onclick="delScheduleTeacher(${elem.id_schedule})" data-bs-toggle="modal" data-bs-target="#delScheduleTeacherModal" style="background-color:${elem.color};" class="btn text-white">
-                                    ${elem.nameDiscipline}<br>
-                                    ${elem.description}ª${elem.classification} - ${convertShift(elem.shift)}
-                                </a>
-                            </div>`
-
+                    row += `
+                    <div class="w-150 text-center align-items-center" style="display: flex; justify-content: center;">
+                        <div class="d-flex m-1 p-2 w-120 text-center" style="background-color:${elem.color}; color:white; border-radius: 5px;">
+                                <div>
+                                    <img src="http://localhost/gerenciador-horario/public/assets/img/${elem.icone}" width="28px" class="border-radius-lg m-1" alt="spotify">
+                                </div>                    
+                                <div class="my-auto text-start">
+                                    <h6 class="mb-0 font-weight-bold font-size-11" style="color:white;">${elem.abbreviation}</h6>                                    
+                                    <span class="mb-0 font-weight-bold font-size-11"> ${elem.description}ª${elem.classification} - ${convertShift(elem.shift)}</span>
+                                </div>
+                        </div>
+                    </div>`
                 }
             })
             row += `</td>`
         }
         row += `</tr>`
     }
-    return row;
+    return row;  
+                            
 }
 
 async function getDataTeacher(id, locale) {
@@ -777,10 +788,38 @@ const addAllocationModal = new bootstrap.Modal(document.getElementById('addAlloc
 const addAllocationForm = document.getElementById('addAllocationForm');
 console.log(addAllocationForm)
 
+function listOption() {
+
+    let row = ""   
+       
+        for (let ps = 1; ps <= qtdePosition; ps++) {
+            row +=`
+            <tr class="text-center">
+                <td class="align-middle text-center"><span class="text-gray">${ps} ª aula</span>
+                </td>`
+                for (let dw = startDayWeek; dw <= endDayWeek ; dw++) {
+    
+                    row +=`<td class="align-middle text-center">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" onclick="eraseAlert('fieldAlertErrorDayWeekAllocation');" name="nDayWeek[]" value="${ps};${dw}" type="checkbox" role="switch" id="dayWeek${ps}${dw}">
+                            <label class="form-check-label" for="dayWeekdayWeek${ps}${dw}"></label>
+                        </div>
+                    </td>`
+                }
+            row += `</tr>`
+        }
+
+        return row
+
+       
+}
+
 async function addAllocationTeacher(idTeacher) {
 
     //addAllocationModal.show();
     //addAllocationForm.reset();
+    defineRowsTable(startDayWeek,endDayWeek,qtdePosition,'#tb_allocation_teacher_add > thead > tr')
+    document.querySelector('#tb_allocation_teacher_add > tbody').innerHTML = `${listOption()}`
     addAllocationForm.reset();
     document.getElementById('idTeacherAllocation').value = idTeacher
     getDataTeacher(idTeacher, 'nameTeacherAllocationAdd');
@@ -810,6 +849,7 @@ async function addAllocationTeacher(idTeacher) {
     // });
 
 }
+
 
 if (addAllocationForm) {
     addAllocationForm.addEventListener("submit", async (e) => {

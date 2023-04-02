@@ -69,6 +69,10 @@ if (loginForm) {
     })
 }
 
+const logout = ()=> {
+    redirectLogin();
+}
+
 const loadMain = (token) => {
     window.location.href = `${URL_FRONT}/home?token=${token}`
 }

@@ -3,6 +3,9 @@ console.log('carregando o arquivo')
 
 
 var idSerie = localStorage.getItem('idSeriesStorege');
+var startDayWeek = localStorage.getItem('startDayWeek')
+var endDayWeek = localStorage.getItem('endDayWeek')
+var qtdePosition = localStorage.getItem('qtdePosition')
 
 console.log('carregando localstorage::' + idSerie)
 
@@ -302,6 +305,8 @@ async function listScheduleSeries(idSerie) {
             const data = response.data;
             console.log(data);
 
+            //document.querySelector("#tb_series_schedule > thead > tr").innerHTML = `${getConfiguraion(1)}`;
+            defineRowsTable(startDayWeek,endDayWeek,qtdePosition,'#tb_series_schedule > thead > tr')
             document.querySelector("#tb_series_schedule > tbody").innerHTML = `${loadDataScheduleSerie(data)}`;
             document.getElementById('totalSchedule').textContent = writeZero(data.length)
 
@@ -349,7 +354,7 @@ function loadDataScheduleSerie(data) {
 
     // let dayShow = '';
     // let rowColor = '';
-    for (let ps = 1; ps < 7; ps++) {
+    for (let ps = 1; ps <= qtdePosition; ps++) {
         row += `<tr>
                     <td scope="row" class="text-center align-middle">
                             ${ps}ª aula <p class="text-sm text-gray">${translateSchedule(ps, shiftGlobal)}           
@@ -358,7 +363,7 @@ function loadDataScheduleSerie(data) {
         // let dayShow = ps === 1 ? convertDayWeek(dw) : '';           
         // let rowColor = dw % 2 === 0 ? 'table-secondary' : 'table-success'
 
-        for (let dw = 2; dw < 7; dw++) {
+        for (let dw = startDayWeek; dw <= endDayWeek ; dw++) {
             row += `<td class="text-center align-middle">`
             //row += `<th scope="row">${dw}${ps}</th>`
 

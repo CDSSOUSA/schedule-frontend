@@ -197,7 +197,8 @@ const convertDayWeek = (dia, status) => {
         "TER",
         "QUA",
         "QUI",
-        "SEX"
+        "SEX",
+        "SÁB"
     ]
     console.log(status);
 
@@ -208,7 +209,8 @@ const convertDayWeek = (dia, status) => {
             "TERÇA",
             "QUARTA",
             "QUINTA",
-            "SEXTA"
+            "SEXTA",
+            "SÁBADO"
         ]
     }
     data.forEach((item, indice) => {

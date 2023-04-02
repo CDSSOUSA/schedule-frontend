@@ -22,37 +22,12 @@
                             <div class="table-responsive">
                                 <table id="tb_allocation_teacher_add" class="table table-striped text-center align-items-center mb-0">
                                     <thead>
-                                        <tr class="text-center">
-                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Dias|Aulas</th>
-                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Segunda</th>
-                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Terça</th>
-                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quarta</th>
-                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quinta</th>
-                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sexta</th>
+                                        <tr class="text-center">                                           
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <?php  //for ($dw = 2; $dw < 7; $dw++):
-                                        for ($ps = 1; $ps < 7; $ps++) : ?>
-                                            <tr class="text-center">
-                                                <td class="align-middle text-center"><span class="text-gray"><?= $ps; ?>ª aula</span>
-                                                </td>
-                                                <?php for ($dw = 2; $dw < 7; $dw++) : ?>
-
-                                                    <td class="align-middle text-center">
-                                                        <div class="form-check form-switch">
-                                                            <input class="form-check-input" onclick="eraseAlert('fieldAlertErrorDayWeekAllocation');" name="nDayWeek[]" value="<?= $ps; ?>;<?= $dw; ?>" type="checkbox" role="switch" id="dayWeek<?= $ps; ?><?= $dw; ?>">
-                                                            <label class="form-check-label" for="dayWeek<?= $ps; ?><?= $dw; ?>"></label>
-                                                        </div>
-                                                    </td>
-                                                <?php endfor; ?>
-                                            </tr>
-                                        <?php endfor;
-                                        //endfor;
-                                        ?>
+                                    <tbody>                                      
                                     </tbody>
                                 </table>
-
                             </div>
                             <div class="row">
                                 <div class="col">

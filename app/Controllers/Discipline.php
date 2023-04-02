@@ -18,6 +18,10 @@ class Discipline extends BaseController
     }
     public function index()
     {
+        if (!session()->has('tokenAuth')) {
+            return redirect()->to('/');
+        }
+        
         $tokenSession = session()->get('tokenAuth');
 
         $this->generateToken->setKey($this->service->getSecretKey());        

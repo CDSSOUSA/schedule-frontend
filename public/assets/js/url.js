@@ -7,6 +7,7 @@ const URIS = {
         out: "logout",
         validate: "login/validate"
     },
+    logout: "logout",
     teacher: {
         create: "teacher/create",
         update: "teacher/update",

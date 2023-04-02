@@ -5,6 +5,9 @@
 // var messageSuccess = '<i class="fa fa-user"></i> Operação realizada com sucesso!';
 
 var shiftLocalStorage = localStorage.getItem('shift')
+var startDayWeek = localStorage.getItem('startDayWeek')
+var endDayWeek = localStorage.getItem('endDayWeek')
+var qtdePosition = localStorage.getItem('qtdePosition')
 //var local = localStorage.getItem('totalScheduleStorage')
 // var totalSchedule = 0
 
@@ -69,7 +72,7 @@ async function listScheduleSeries(idSerie) {
         .then(response => {
             const data = response.data;
             console.log(data);
-
+            defineRowsTable(startDayWeek,endDayWeek,qtdePosition,'#tb_series_schedule > thead > tr')
             document.querySelector("#tb_series_schedule > tbody").innerHTML = `${loadDataScheduleSerie(data)}`;
             document.getElementById('totalSchedule').textContent = writeZero(data.length)
             
@@ -102,7 +105,7 @@ function loadDataScheduleSerie(data) {
 
     // let dayShow = '';
     // let rowColor = '';
-    for (let ps = 1; ps < 7; ps++) {
+    for (let ps = 1; ps <= qtdePosition; ps++) {
         row += `<tr>
                     <td scope="row" class="text-center align-middle">
                             ${ps}ª aula <p class="text-sm text-gray">${translateSchedule(ps, shiftGlobal)}           
@@ -111,7 +114,7 @@ function loadDataScheduleSerie(data) {
         // let dayShow = ps === 1 ? convertDayWeek(dw) : '';           
         // let rowColor = dw % 2 === 0 ? 'table-secondary' : 'table-success'
 
-        for (let dw = 2; dw < 7; dw++) {
+        for (let dw = startDayWeek; dw <= endDayWeek ; dw++) {
             row += `<td class="text-center align-middle">`
             //row += `<th scope="row">${dw}${ps}</th>`
 
@@ -156,10 +159,10 @@ function loadDataSchedule(data) {
     let row = "";
     // let dayShow = '';
     // let rowColor = '';
-    for (let dw = 2; dw < 7; dw++) {
-        for (let ps = 1; ps < 7; ps++) {
+    for (let dw = startDayWeek; dw <= endDayWeek ; dw++) {
+        for (let ps = 1; ps <= qtdePosition; ps++) {
 
-            let dayShow = ps === 3 ? convertDayWeek(dw) : '';
+            let dayShow = ps === Math.round(qtdePosition / 2) ? convertDayWeek(dw) : '';
             let dayShowBorder = ps === 1 ? 'table-border-top' : '';
             let dayShowBorderBottom = ps === 6 ? 'table-border-bodttom' : '';
             let rowColor = dw % 2 === 0 ? 'table-secondary' : 'table-success'

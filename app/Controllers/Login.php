@@ -8,6 +8,8 @@ class Login extends BaseController
 {
     public function index()
     {
+        session()->remove('tokenAuth');
+              
         return view('login.html');
     }
    
