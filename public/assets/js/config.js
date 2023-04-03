@@ -7,9 +7,24 @@ const getConfiguration = async (id_year_school) => {
             "Content-Type": "application/json"
         }})
         .then(response => {
-            localStorage.setItem('startDayWeek', response.data[0].start_dayWeek);            
-            localStorage.setItem('endDayWeek', response.data[0].end_dayWeek);            
-            localStorage.setItem('qtdePosition', response.data[0].qtde_position);            
+
+            const data = response.data
+            console.log(data)
+
+            if(data.length >=1) {
+
+                localStorage.setItem('startDayWeek', data[0].start_dayWeek);            
+                localStorage.setItem('endDayWeek', data[0].end_dayWeek);            
+                localStorage.setItem('qtdePosition', data[0].qtde_position);            
+                localStorage.setItem('class_time', data[0].class_time);            
+                localStorage.setItem('shiftList', data[0].shift); 
+                
+                document.getElementById('qtdeDayWeek').value = data[0].qtde_dayWeek
+                document.getElementById('qtdePosition').value = data[0].qtde_position
+                document.getElementById('startDayWeek').value = data[0].start_dayWeek
+                //document.getElementById('shift').value = data[0].start_dayWeek
+            }
+            
             //document.querySelector("#tb_series_schedule > thead > tr").innerHTML = `${getRowHeader(response.data)}`;
         })
         .catch(
@@ -21,6 +36,10 @@ const getConfiguration = async (id_year_school) => {
     } catch (error) {
 
     }
+}
+
+function addConfiguration(){
+    console.log('addConfiguration')
 }
 
 const defineRowsTable = (startDayWeek, endDayWeek, qtdePosition,target) => {

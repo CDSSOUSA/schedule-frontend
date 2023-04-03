@@ -8,6 +8,32 @@ var shiftLocalStorage = localStorage.getItem('shift')
 var startDayWeek = localStorage.getItem('startDayWeek')
 var endDayWeek = localStorage.getItem('endDayWeek')
 var qtdePosition = localStorage.getItem('qtdePosition')
+
+var shiftList = localStorage.getItem('shiftList')
+
+
+function defineTurno(target) {
+    document.querySelector(`#${target}`).innerHTML = `${listShift(shiftList)}`
+}
+
+function listShift(shiftList) {
+
+    const result = shiftList.split(';')
+        
+    let option = ''
+
+    result.forEach( (el) =>{
+
+       option += `<li><a class="dropdown-item" href="#" onclick="listSchedule('${el}')">${convertShift(el)}</a></li>`
+    
+    })   
+
+    return option
+
+}
+
+defineTurno('li_shift');
+
 //var local = localStorage.getItem('totalScheduleStorage')
 // var totalSchedule = 0
 

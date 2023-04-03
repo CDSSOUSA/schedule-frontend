@@ -253,10 +253,14 @@ function translateSchedule(position, shift) {
 
 }
 
+
+
 const convertShift = (turno) => {
     let shift = 'TARDE'
     if (turno === 'M')
         shift = 'MANHÃ'
+    if(turno === 'N')
+        shift = 'NOITE'
     return shift;
 }
 

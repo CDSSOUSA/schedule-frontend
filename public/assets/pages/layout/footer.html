@@ -1,24 +1,114 @@
-  
-  <script src="../public/assets/js/jquery.min.js"></script>
-  <script src="../public/assets/js/core/popper.min.js"></script>
-  <script src="../public/assets/js/core/bootstrap.min.js"></script>
-  <script src="../public/assets/js/bootstrap-toaster.min.js"></script>
-  <script src="../public/assets/js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="../public/assets/js/plugins/smooth-scrollbar.min.js"></script>
-  <script src="../public/assets/js/plugins/chartjs.min.js"></script>
+<!-- Modal add teacher -->
+<div class="modal fade" id="addConfigurationModal" tabindex="-1" role="dialog"
+  aria-labelledby="addConfigurationModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body p-0">
+        <div class="card card-plain">
+          <div class="card-header pb-0 text-left">
+            <h3 class="font-weight-bolder text-primary text-gradient"> + Configuração ::</h3>
+            <p class="mb-0">Entre com os dados para definir configurações.</p>
+          </div>
+          <div class="card-body pb-3">
+            <form role="form text-left" method="post" action="teacher/create" id="addConfigurationForm">
+              <span id="msgAlertError"></span>
+              <div class="row">
+                <div class="col">
+                  <label class="col-form-label">Qtde dias da semana :: <span class="error invalid-feedback"
+                      id="fieldlertErrorname"></span></label>
+                  <div class="input-group mb-3">
+                    <input type="number" min="1" max="7" name="qtdeDayWeek" class="form-control"
+                      onfocus="eraseAlert(['fieldlertErrorname','msgAlertError']);" id="qtdeDayWeek"
+                      placeholder="Quantidade dias na semaa" aria-label="qtdeDayWeek" aria-describedby="qtdeDayWeek">
 
-  <!-- Github buttons -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../public/assets/js/soft-ui-dashboard.min.js?v=1.0.7"></script>
-  <script src="../public/assets/js/axios.min.js"></script>
-  <script src="../public/assets/js/js.cookie.js"></script>
-  <script src="../public/assets/js/url.js"></script>
-  <script src="../public/assets/js/utils.js"></script>
-  <script src="../public/assets/js/home.js"></script>
-  <script src="../public/assets/js/cute-alert.js"></script>
-  <script src="../public/assets/js/config.js"></script>
-  
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label class="col-form-label">Qtde aulas por dia/turno :: <span class="error invalid-feedback"
+                      id="fieldlertErrorname"></span></label>
+                  <div class="input-group mb-3">
+                    <input type="number" min="1" max="10" name="qtdePosition" class="form-control"
+                      onfocus="eraseAlert(['fieldlertErrorname','msgAlertError']);" id="qtdePosition"
+                      placeholder="Quantidade dias na semaa" aria-label="qtdePosition" aria-describedby="qtdePosition">
 
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label class="col-form-label">Dia início da semana :: <span class="error invalid-feedback"
+                      id="fieldlertErrorname"></span></label>
+                  <div class="input-group mb-3">
+                    <select name="startDayWeek" class="form-control"
+                      onfocus="eraseAlert(['fieldlertErrorname','msgAlertError']);" id="startDayWeek"
+                      aria-label="startDayWeek" aria-describedby="startDayWeek">
+                      <option value="">Escolha uma opção ...</option>
+                      <option value="2">SEGUNDA</option>
+                      <option value="3">TERÇA</option>
+                      <option value="4">QUARTA</option>
+                      <option value="5">QUINTA</option>
+                      <option value="6">SEXTA</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label class="col-form-label">Turno(s) :: <span class="error invalid-feedback"
+                      id="fieldlertErrorname"></span></label>
+                  <div class="input-group mb-3">
+                    <div class="form-check form-switch form-check-inline">
+                      <input class="form-check-input" onclick="eraseAlert('fieldAlertErrorShiftAllocation');"
+                        name="nShift[]" value="M" type="checkbox" role="switch" id="checboxShiftM">
+                      <label class="form-check-label font-weight-bold text-sm" for="checboxShiftM">MANHÃ</label>
+                      &nbsp;&nbsp;
+                    </div>
+                    <div class="form-check form-switch form-check-inline">
+                      <input class="form-check-input" onclick="eraseAlert('fieldAlertErrorShiftAllocation');"
+                        name="nShift[]" value="T" type="checkbox" role="switch" id="checboxShiftT">
+                      <label class="form-check-label font-weight-bold text-sm" for="checboxShiftT">TARDE</label>
+                      &nbsp;&nbsp;
+                    </div>
+                    <div class="form-check form-switch form-check-inline">
+                      <input class="form-check-input" onclick="eraseAlert('fieldAlertErrorShiftAllocation');"
+                        name="nShift[]" value="N" type="checkbox" role="switch" id="checboxShiftN">
+                      <label class="form-check-label font-weight-bold text-sm" for="checboxShiftN">NOITE</label>
+                      &nbsp;&nbsp;
+                    </div>
 
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn bg-gradient-primary btn-lg btn-rounded w-100 mt-4 mb-0">Salvar</button>
+                <button type="button" class="btn btn-link  ml-auto" data-bs-dismiss="modal">Sair</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
+<script src="../public/assets/js/jquery.min.js"></script>
+<script src="../public/assets/js/core/popper.min.js"></script>
+<script src="../public/assets/js/core/bootstrap.min.js"></script>
+<script src="../public/assets/js/bootstrap-toaster.min.js"></script>
+<script src="../public/assets/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="../public/assets/js/plugins/smooth-scrollbar.min.js"></script>
+<script src="../public/assets/js/plugins/chartjs.min.js"></script>
+
+<!-- Github buttons -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+<script src="../public/assets/js/soft-ui-dashboard.min.js?v=1.0.7"></script>
+<script src="../public/assets/js/axios.min.js"></script>
+<script src="../public/assets/js/js.cookie.js"></script>
+<script src="../public/assets/js/url.js"></script>
+<script src="../public/assets/js/utils.js"></script>
+<script src="../public/assets/js/home.js"></script>
+<script src="../public/assets/js/cute-alert.js"></script>
+<script src="../public/assets/js/config.js"></script>

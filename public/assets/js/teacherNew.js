@@ -8,6 +8,7 @@ var idTeacherStorege = localStorage.getItem('idTeacher')
 var startDayWeek = localStorage.getItem('startDayWeek')
 var endDayWeek = localStorage.getItem('endDayWeek')
 var qtdePosition = localStorage.getItem('qtdePosition')
+var shiftList = localStorage.getItem('shiftList')
 
 
 if (idTeacherStorege == null) {
@@ -16,27 +17,31 @@ if (idTeacherStorege == null) {
 
 
 
-//var idTeacheDiscipline = 11;
+function defineTurno(target) {
+    document.querySelector(`#${target}`).innerHTML = `${listShift(shiftList)}`
+}
 
-// const btnListAllocation = `<a href="#" class="btn btn-dark btn-sm" onclick="listAllocationTeacherDiscipline(${idTeacheDiscipline})">
-// <i class="fa fa-list" aria-hidden="true"></i> Alocação</a>`
+function listShift(shiftList) {
 
+    const result = shiftList.split(';')
+        
+    let option = ''
 
-// listTeacDisc();
+    result.forEach( (el) =>{
 
-// async function listTeacDisc() {
-//     await axios.get(`http://localhost/nw-templ/soft-ui-dashboard-main/pages//teacher/list`)
-//         .then(response => {
-//             const data = response.data;
-//             console.log(data);
-//             document.querySelector("#tb_teacher > tbody").innerHTML = `${loadDataTeacher(data)}`;
-//             //loadDataTable(data)
-//         }
-//         )
-//         .catch(error => console.log(error))
-// }
+       option += `<div class="form-check form-switch form-check-inline">
+                    <input class="form-check-input" onclick="eraseAlert('fieldAlertErrorShiftAllocation');" name="nShift[]" value="${el}" type="checkbox" role="switch" id="checboxShift${el}">
+                    <label class="form-check-label font-weight-bold text-sm" for="checboxShift${el}">${convertShift(el)}</label>
+                    &nbsp;&nbsp;
+                </div>`
+    
+    })   
 
+    return option
 
+}
+
+defineTurno('shiftAddDisponibilidade');
 
 
 listDisciplinesTeacher(localStorage.getItem('idTeacher'));

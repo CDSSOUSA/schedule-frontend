@@ -61,7 +61,7 @@ async function showDisciplines(idDiscipline) {
                 document.getElementById('description').innerText = data.description
                 document.getElementById('abbreviation').innerText = data.abbreviation
                 document.getElementById('amount').innerText = `${writeZero(data.amount)} aula(s)`
-                document.getElementById('icone').innerHTML = `<img class="w-25 position-relative z-index-2 pt-4 mb-3" src="../public/assets/img/${data.icone}" alt="rocket">`
+                document.getElementById('icone').innerHTML = `<img class="w-50 position-relative z-index-2 pt-4 mb-3" src="../public/assets/img/${data.icone}" alt="rocket">`
                 document.getElementById('action').innerHTML = `<a class="btn btn-link text-dark px-3 mb-0" href="#" onclick="editDiscipline(${data.id})"  data-bs-toggle="modal" data-bs-target="#editDisciplineModal">
                                                                 <i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Editar
                                                            </a>

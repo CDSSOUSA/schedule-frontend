@@ -40,6 +40,6 @@ echo $this->section('content');
 
 echo $this->section('script-js'); ?>
 
-<script src="../public/assets/js/home.js"></script>
+<!-- <script src="../public/assets/js/home.js"></script> -->
 
 <?= $this->endSection();

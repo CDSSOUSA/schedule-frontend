@@ -6,6 +6,32 @@ var idSerie = localStorage.getItem('idSeriesStorege');
 var startDayWeek = localStorage.getItem('startDayWeek')
 var endDayWeek = localStorage.getItem('endDayWeek')
 var qtdePosition = localStorage.getItem('qtdePosition')
+var shiftList = localStorage.getItem('shiftList')
+
+
+function defineTurno(target) {
+    document.querySelector(`#${target}`).innerHTML = `${listShift(shiftList)}`
+}
+
+function listShift(shiftList) {
+
+    const result = shiftList.split(';')
+    console.log(result)
+    
+    let option = `<option value="">Selecione ...</option>`;
+
+    result.forEach( (el) =>{
+
+       option += `<option value=${el}>${convertShift(el)}</option>`
+    
+    })   
+
+    return option
+
+}
+
+defineTurno('shiftAdd');
+
 
 console.log('carregando localstorage::' + idSerie)
 
