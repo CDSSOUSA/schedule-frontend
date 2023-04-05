@@ -27,11 +27,12 @@ class Home extends BaseController
 
         if (!session()->has('tokenAuth')) {
             session()->set('tokenAuth', $tokenAuth);
-        } else {
+        } 
+        // else {
 
-            echo 'estou sem token';
-        }
-        echo session()->get('tokenAuth');
+        //     echo 'estou sem token';
+        // }
+        //echo session()->get('tokenAuth');
 
         if (!session()->has('tokenAuth')) {
             return redirect()->to('/');

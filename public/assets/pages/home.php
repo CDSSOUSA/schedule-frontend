@@ -1,7 +1,7 @@
 <?php
 echo $this->extend('layout/default');
 echo $this->section('content');
-
+echo session()->get('tokenAuth');
 
 
 
@@ -12,7 +12,7 @@ echo $this->section('content');
   <?php //include('breadcrumb.html'); 
   ?>
   <div class="container-fluid py-4">
-    <?php //include('series/menu-widget.html'); 
+    <?php include('home/menu-widget.html'); 
     ?>
     <?php include('home/content.html'); ?>
     <div class="row my-4"></div>

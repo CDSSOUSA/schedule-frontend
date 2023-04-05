@@ -1,7 +1,7 @@
-const getConfiguration = async (id_year_school) => {
+const getConfiguration = async () => {
 
     try {
-        await axios.get(`${URL_BASE}/config/${id_year_school}`, {}, {
+        await axios.get(`${URL_BASE}/config/show`, {}, {
 
             headers: {
                 "Content-Type": "application/json"
@@ -47,7 +47,7 @@ const getConfiguration = async (id_year_school) => {
 
     }
 }
-
+getConfiguration()
 
 // function defineTurno(target) {
 //     document.querySelector(`#${target}`).innerHTML = `${listShift(shiftList)}`
@@ -107,54 +107,58 @@ const addConfigurationModal = new bootstrap.Modal(document.getElementById('addCo
 
 const addConfigurationForm = document.getElementById('addConfigurationForm');
 console.log(addConfigurationForm)
-//addConfigurationForm.reset();
+addConfigurationForm.reset();
 
-// const addConfiguration = async () => {
+const addConfiguration = async () => {
 
-//     console.log('aqui')
+    console.log('aqui')
+
+   
+    //document.querySelector('#shiftConfig').innerHTML = ''
 
 
-//     try {
-//         await axios.get(`${URL_BASE}/config/${id_year_school}`, {}, {
+    try {
+        await axios.get(`${URL_BASE}/config/show`, {}, {
 
-//             headers: {
-//                 "Content-Type": "application/json"
-//             }
-//         })
-//             .then(response => {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
 
-//                 const data = response.data
-//                 console.log(data)
+                const data = response.data
+                console.log(data)
 
-//                 if (data.length >= 1) {                  
+                if (data.length >= 1) {                  
 
-//                     document.getElementById('qtdeDayWeek').value = data[0].qtde_dayWeek
-//                     document.getElementById('idConfiguration').value = data[0].id
-//                     document.getElementById('qtdePosition').value = data[0].qtde_position
-//                     document.getElementById('startDayWeek').value = data[0].start_dayWeek
-//                     document.querySelector('#shiftConfig').innerHTML = `${listShiftConfiguration(data[0].shift)}`
-//                     //document.getElementById('shift').value = data[0].start_dayWeek
-//                 } 
+                    document.getElementById('qtdeDayWeek').value = data[0].qtde_dayWeek
+                    document.getElementById('idConfiguration').value = data[0].id
+                    document.getElementById('qtdePosition').value = data[0].qtde_position
+                    document.getElementById('startDayWeek').value = data[0].start_dayWeek
+                    document.querySelector('#shiftConfig').innerHTML = `${listShiftConfiguration(data[0].shift)}`
+                    //document.getElementById('shift').value = data[0].start_dayWeek
+                } else{
+                    document.getElementById('qtdeDayWeek').value = ''
+                    document.getElementById('qtdePosition').value = ''
+                    document.getElementById('startDayWeek').value = ''
+                }
 
                
-//             })
-//             .catch(
-//                 error => {
-//                     loadToast(typeError, titleError, messageError)
-//                     console.log(error)
-//                 })
+            })
+            .catch(
+                error => {
+                    loadToast(typeError, titleError, messageError)
+                    console.log(error)
+                })
 
-//     } catch (error) {
+    } catch (error) {
 
-//     }
+    }
 
-//     console.log('addConfiguration')
+    console.log('addConfiguration')
 
 
-//     // document.getElementById('qtdeDayWeek').value = ''
-//     // document.getElementById('qtdePosition').value = ''
-//     // document.getElementById('startDayWeek').value = ''
-//     //document.getElementById('shiftConfiguration').value = ''
+
 
    
 //     // document.getElementById('qtdeDayWeek').value = localStorage.get('qtdeDayWeek')
@@ -164,15 +168,16 @@ console.log(addConfigurationForm)
 //     // document.querySelector('#shiftConfig').innerHTML = `${listShiftConfiguration(localStorage.get('shiftList'))}`
 
 
-//     // document.getElementById('msgAlertErrorConfiguration').innerHTML = ''
-//     // document.getElementById('fieldlertErrorQtdeDayWeek').innerHTML = ''
-//     // document.getElementById('fieldlertErrorQtdePosition').innerHTML = ''
-//     // document.getElementById('fieldlertErrorStartDayWeek').innerHTML = ''
-//     // document.getElementById('fieldlertErrorShiftConfiguration').innerHTML = ''
+    document.getElementById('msgAlertErrorConfiguration').innerHTML = ''
+    document.getElementById('fieldlertErrorQtdeDayWeek').innerHTML = ''
+    document.getElementById('fieldlertErrorQtdeLimite').innerHTML = ''
+    document.getElementById('fieldlertErrorQtdePosition').innerHTML = ''
+    document.getElementById('fieldlertErrorStartDayWeek').innerHTML = ''
+    document.getElementById('fieldlertErrorShiftConfiguration').innerHTML = ''
 
     
 
-// }
+}
 
 if (addConfigurationForm) {
     addConfigurationForm.addEventListener("submit", async (e) => {
@@ -188,8 +193,8 @@ if (addConfigurationForm) {
 
                 if (response.data.error) {
                     document.getElementById('msgAlertErrorConfiguration').innerHTML = response.data.msg
+                    validateErros(response.data.msgs.error, 'fieldlertErrorQtdeLimite')
                     validateErros(response.data.msgs.qtdeDayWeek, 'fieldlertErrorQtdeDayWeek')
-                    validateErros(response.data.msgs.error, 'fieldlertErrorQtdeDayWeek')
                     validateErros(response.data.msgs.qtdePosition, 'fieldlertErrorQtdePosition')
                     validateErros(response.data.msgs.startDayWeek, 'fieldlertErrorStartDayWeek')
                     validateErros(response.data.msgs.shiftConfiguration, 'fieldlertErrorShiftConfiguration')
@@ -238,4 +243,3 @@ function getRowHeader(startDayWeek, endDayWeek, qtdePosition) {
 
     return row
 }
-getConfiguration(1)

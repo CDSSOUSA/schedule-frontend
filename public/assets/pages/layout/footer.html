@@ -16,11 +16,13 @@
               <span id="msgAlertErrorConfiguration"></span>
               <div class="row">
                 <div class="col">
-                  <label class="col-form-label">Qtde dias da semana :: <span class="error invalid-feedback"
-                      id="fieldlertErrorQtdeDayWeek"></span></label>
+                  <label class="col-form-label">Qtde dias da semana :: 
+                    <span class="error invalid-feedback" id="fieldlertErrorQtdeDayWeek"></span>
+                    <span class="error invalid-feedback" id="fieldlertErrorQtdeLimite"></span>
+                  </label>
                   <div class="input-group mb-3">
                     <input type="number" min="1" max="7" name="qtdeDayWeek" class="form-control"
-                      onfocus="eraseAlert(['fieldlertErrorQtdeDayWeek','msgAlertErrorConfiguration']);" id="qtdeDayWeek"
+                      onfocus="eraseAlert(['fieldlertErrorQtdeDayWeek','msgAlertErrorConfiguration','fieldlertErrorQtdeLimite']);" id="qtdeDayWeek"
                       placeholder="Quantidade dias na semaa" aria-label="qtdeDayWeek" aria-describedby="qtdeDayWeek">
 
                   </div>
