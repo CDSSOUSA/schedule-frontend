@@ -114,6 +114,6 @@ const loadToast = (type, title, message) => {
         title: title,
         message: message,
         buttonText: false,
-        timer: 3000
+        timer: 10000
     })
 }

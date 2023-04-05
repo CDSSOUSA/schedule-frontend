@@ -230,7 +230,8 @@ function translateSchedule(position, shift) {
         "08:30 - 09:15",
         "09:15 - 10:00",
         "10:00 - 10:45",
-        "10:45 - 11:30"
+        "10:45 - 11:30",
+        "11:30 - 12:15"
     ];
     schedule['T'] = [
         "13:00 - 13:45",
@@ -238,7 +239,8 @@ function translateSchedule(position, shift) {
         "14:30 - 15:15",
         "15:15 - 16:00",
         "16:00 - 16:45",
-        "16:45 - 17:30"
+        "16:45 - 17:30",
+        "17:30 - 18:15"
     ];
 
     //console.log(schedule)

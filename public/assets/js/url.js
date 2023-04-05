@@ -45,5 +45,7 @@ const URIS = {
 }
 
 const loadLogin = () => {
+
+    loadToast(typeSuccess, titleSuccess, messageSuccess);
     window.location.href = `${URL_FRONT}`
 }
