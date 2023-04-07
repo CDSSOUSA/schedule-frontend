@@ -1,0 +1,124 @@
+<div class="row mt-4">
+    <div class="col-lg-6 col-md-6 mb-md-0 mb-4">
+        <div class="card bg-dark">
+
+            <div class="card-header pb-0 bg-dark">
+
+                <div class="row">
+                    <div class="col-lg-6 col-7">
+                        <h5 class="font-weight-bolder text-white bg-dark"><i class="fa fa-graduation-cap"
+                                aria-hidden="true"></i> Ano Escolar ::</h5>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="card-body pb-2">
+                <div class="table-responsive">
+                    <table id="tb_year" class="table text-center align-items-center mb-4 ">
+                        <thead>
+                            <tr class="text-center align-items-center ">
+                                <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Descrição
+                                </th>
+                                <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Status</th>
+                                <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7" colspan="2">Ações</th>
+                            </tr>
+                        </thead>
+                       
+                        <tbody>
+                            <tr class="text-center align-middle">
+                                <td scope="row" class="text-center align-middle">
+                                    <p class="text-sm text-white">2023</p>
+                                </td>
+                                <td scope="row" class="text-center align-middle">                                  
+
+                                        <h5 class="text-sm text-white font-weight-bold p-1">ATIVO</h5>
+                                    
+                                </td>
+                                <td scope="row" class="text-center align-middle">
+                                    <a class="btn btn-link text-white px-3 mb-0" href="javascript:;"><i
+                                        class="fas fa-pencil-alt text-white me-2" aria-hidden="true"></i>Editar</a>
+                                </td>
+                                <td scope="row" class="text-center align-middle">
+                                    <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i
+                                        class="far fa-trash-alt me-2" aria-hidden="true"></i>desativar</a>
+                                </td>
+                            </tr>
+                            <tr class="text-center align-middle">
+                                <td scope="row" class="text-center align-middle">
+                                    
+                                    <p class="text-sm text-secondary">2022</p>
+                                </td>
+                                <td scope="row" class="text-center align-middle">
+                                   
+                                    <h5 class="text-sm font-weight-bold text-secondary p-1">INATIVO</h5>
+                                   
+
+                                </td>
+                                <td scope="row" class="text-center align-middle">
+                                    <a class="btn btn-link text-secondary disabled px-3 mb-0 text-center align-middle" href="javascript:;"><i
+                                        class="fas fa-pencil-alt text-secondary me-2" aria-hidden="true"></i>Editar</a>
+                                </td>
+                                <td scope="row" class="text-center align-middle">
+                                    <a class="btn btn-link text-danger disabled text-gradient px-3 mb-0" href="javascript:;"><i
+                                        class="far fa-trash-alt me-2" aria-hidden="true"></i>desativar</a>
+                                </td>
+                            </tr>
+                            <tr class="text-center align-middle">
+                                <td scope="row" class="text-center align-middle">
+                                    
+                                    <p class="text-sm text-secondary">2021</p>
+                                </td>
+                                <td scope="row" class="text-center align-middle">
+                                   
+                                    <h5 class="text-sm font-weight-bold text-secondary p-1">INATIVO</h5>
+                                   
+
+                                </td>
+                                <td scope="row" class="text-center align-middle">
+                                    <a class="btn btn-link text-secondary disabled px-3 mb-0 text-center align-middle" href="javascript:;"><i
+                                        class="fas fa-pencil-alt text-secondary me-2" aria-hidden="true"></i>Editar</a>
+                                </td>
+                                <td scope="row" class="text-center align-middle">
+                                    <a class="btn btn-link text-danger disabled text-gradient px-3 mb-0" href="javascript:;"><i
+                                        class="far fa-trash-alt me-2" aria-hidden="true"></i>desativar</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card h-100 p-3">
+            <div class="card-header pb-0 text-left">
+                <h3 class="font-weight-bolder text-primary text-gradient"> + Ano Escolar ::</h3>
+                <p class="mb-0">Entre com os dados para registrar o ano escolar.</p>
+            </div>
+            <div class="card-body pb-3">
+                <form role="form text-left" method="post" action="year/create" id="addYearForm">
+                    <span id="msgAlertErrorYear"></span>
+                    <div class="row">
+                        <div class="col">
+                            <label class="col-form-label">Descrição :: <span class="error invalid-feedback"
+                                    id="fieldAlertErrorDescriptionYear"></span></label>
+                            <div class="input-group mb-3">
+                                <input type="number" min="2023" max="2026" name="description" class="form-control"
+                                    onfocus="eraseAlert(['fieldAlertErrorDescriptionYear','msgAlertErrorYear']);"
+                                    id="descriptionYear" placeholder="Ex.: 2024" aria-label="description" aria-describedby="description">
+
+                            </div>
+                        </div>
+                    </div>                
+
+                    <div class="text-center">
+                        <button type="submit"
+                            class="btn bg-gradient-primary btn-lg btn-rounded w-100 mt-4 mb-0">Salvar</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

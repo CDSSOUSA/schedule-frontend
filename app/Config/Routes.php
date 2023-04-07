@@ -35,6 +35,7 @@ $routes->get('/schedule', 'Schedule::index');
 $routes->get('/discipline', 'Discipline::index');
 $routes->get('/series', 'Series::index');
 $routes->get('/home', 'Home::index');
+$routes->get('/year', 'Year::index');
 
 
 /*

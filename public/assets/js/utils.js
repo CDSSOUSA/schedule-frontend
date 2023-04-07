@@ -64,7 +64,8 @@ const loadMenu = () => {
         'teacher',
         'discipline',
         'series',
-        'schedule'
+        'schedule',
+        'year'
     ]
     area.forEach((el) => {
         document.getElementById(`menu-${el}`).setAttribute('href', `${URL_FRONT}/${el}`);
