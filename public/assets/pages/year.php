@@ -22,7 +22,7 @@ echo $this->section('content');
 
   <?php //include('schedule/modal/add.html'); ?>
   <?php //include('discipline/modal/delete.html'); ?>
-  <?php //include('discipline/modal/edit.html'); ?>
+  <?php include('year/modal/edit.html'); ?>
   <?php //include('schedule/modal/list-series.html'); ?>
   
   <?= $this->endSection(); 

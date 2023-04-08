@@ -113,8 +113,8 @@ async function showSeries(idSerie) {
               
                 // }
 
-                document.getElementById('action').innerHTML = `<a class="btn btn-link text-dark px-3 mb-0 ${display}" href="#" onclick="editSeries(${data[0].id})"  data-bs-toggle="modal" data-bs-target="#editSeriesModal">
-                <i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Editar
+                document.getElementById('action').innerHTML = `<a class="btn btn-link text-secondary px-3 mb-0 ${display}" href="#" onclick="editSeries(${data[0].id})"  data-bs-toggle="modal" data-bs-target="#editSeriesModal">
+                <i class="fas fa-pencil-alt text-secondary me-2" aria-hidden="true"></i>Editar
                 </a>
                 <a class="btn btn-link ${colorText} text-gradient px-3 mb-0" href="#" onclick="editSeriesStatus(${data[0].id}, '${data[0].status}')" data-bs-toggle="modal" data-bs-target="#editSeriesStatusModal"><i class="fa ${icon} me-2" aria-hidden="true"></i>${title}</a>
                 `
@@ -382,8 +382,8 @@ function loadDataScheduleSerie(data) {
     // let rowColor = '';
     for (let ps = 1; ps <= qtdePosition; ps++) {
         row += `<tr>
-                    <td scope="row" class="text-center align-middle">
-                            ${ps}ª aula <p class="text-sm text-gray">${translateSchedule(ps, shiftGlobal)}           
+                    <td scope="row" class="text-center align-middle text-white">
+                            ${ps}ª aula <p class="text-sm text-white">${translateSchedule(ps, shiftGlobal)}           
                     </td>`
 
         // let dayShow = ps === 1 ? convertDayWeek(dw) : '';           

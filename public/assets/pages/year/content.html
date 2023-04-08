@@ -1,4 +1,5 @@
 <div class="row mt-4">
+
     <div class="col-lg-6 col-md-6 mb-md-0 mb-4">
         <div class="card bg-dark">
 
@@ -26,7 +27,7 @@
                         </thead>
                        
                         <tbody>
-                            <tr class="text-center align-middle">
+                            <!-- <tr class="text-center align-middle">
                                 <td scope="row" class="text-center align-middle">
                                     <p class="text-sm text-white">2023</p>
                                 </td>
@@ -36,7 +37,7 @@
                                     
                                 </td>
                                 <td scope="row" class="text-center align-middle">
-                                    <a class="btn btn-link text-white px-3 mb-0" href="javascript:;"><i
+                                    <a class="btn btn-link text-white px-3 mb-0" href="#" onclick="editYear(1)" data-bs-toggle="modal" data-bs-target="#editYearModal"><i
                                         class="fas fa-pencil-alt text-white me-2" aria-hidden="true"></i>Editar</a>
                                 </td>
                                 <td scope="row" class="text-center align-middle">
@@ -76,21 +77,21 @@
 
                                 </td>
                                 <td scope="row" class="text-center align-middle">
-                                    <a class="btn btn-link text-secondary disabled px-3 mb-0 text-center align-middle" href="javascript:;"><i
-                                        class="fas fa-pencil-alt text-secondary me-2" aria-hidden="true"></i>Editar</a>
+                                    <a class="btn btn-link text-secondary disabled px-3 mb-0 text-center align-middle" href="#">
+                                        <i class="fas fa-pencil-alt text-secondary me-2" aria-hidden="true"></i>Editar</a>
                                 </td>
                                 <td scope="row" class="text-center align-middle">
                                     <a class="btn btn-link text-danger disabled text-gradient px-3 mb-0" href="javascript:;"><i
                                         class="far fa-trash-alt me-2" aria-hidden="true"></i>desativar</a>
                                 </td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-md-6 mb-md-0 mb-4">
         <div class="card h-100 p-3">
             <div class="card-header pb-0 text-left">
                 <h3 class="font-weight-bolder text-primary text-gradient"> + Ano Escolar ::</h3>
@@ -98,6 +99,7 @@
             </div>
             <div class="card-body pb-3">
                 <form role="form text-left" method="post" action="year/create" id="addYearForm">
+                    <input type="text" id="idYearActive" name="id_active">
                     <span id="msgAlertErrorYear"></span>
                     <div class="row">
                         <div class="col">
@@ -107,6 +109,36 @@
                                 <input type="number" min="2023" max="2026" name="description" class="form-control"
                                     onfocus="eraseAlert(['fieldAlertErrorDescriptionYear','msgAlertErrorYear']);"
                                     id="descriptionYear" placeholder="Ex.: 2024" aria-label="description" aria-describedby="description">
+
+                            </div>
+                        </div>
+                    </div>                
+                    <div class="row">
+                        <div class="col">
+                            <label class="col-form-label">Migração :: <span class="error invalid-feedback"
+                                    id="fieldAlertErrorDescriptionYear"></span></label>
+                            <div class="input-group mb-3">
+                                <div class="form-check form-switch form-check-inline">
+                                    <input class="form-check-input" name="series" value="S" type="checkbox" role="switch" id="series">
+                                    <label class="form-check-label font-weight-bold text-sm" for="series">Séries</label>
+                                    &nbsp;&nbsp;
+                                </div>
+
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="form-check form-switch form-check-inline">
+                                    <input class="form-check-input" name="configuration" value="S" type="checkbox" role="switch" id="configuration">
+                                    <label class="form-check-label font-weight-bold text-sm" for="configuration">Configurações</label>
+                                    &nbsp;&nbsp;
+                                </div>
+
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="form-check form-switch form-check-inline">
+                                    <input class="form-check-input" name="teacDisc" value="S" type="checkbox" role="switch" id="teacDisc">
+                                    <label class="form-check-label font-weight-bold text-sm" for="teacDisc">Professor/Disciplina</label>
+                                    &nbsp;&nbsp;
+                                </div>
 
                             </div>
                         </div>

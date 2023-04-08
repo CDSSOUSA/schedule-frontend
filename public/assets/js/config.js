@@ -223,11 +223,11 @@ const defineRowsTable = (startDayWeek, endDayWeek, qtdePosition, target) => {
 function getRowHeader(startDayWeek, endDayWeek, qtdePosition) {
     let row = "";
 
-    row += `<th class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">Dias|Aulas</th>`
+    row += `<th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Dias|Aulas</th>`
 
     for (let i = startDayWeek; i <= endDayWeek; i++) {
         row += `
-        <th class="text-uppercase text-dark text-xxs font-weight-bolder opacity-7">${convertDayWeek(i, true)}</th>`
+        <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">${convertDayWeek(i, true)}</th>`
     }
 
     // data.forEach(element => {

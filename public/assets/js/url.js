@@ -39,6 +39,13 @@ const URIS = {
             shift:"series/list/shift"
         }
     },
+    year: {
+        show:"year/show",
+        active:"year/active",
+        list:"year/list",
+        create:"year/create",
+        update:"year/update"
+    },
     report: {
         series: "report/series"
     }
