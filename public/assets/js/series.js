@@ -43,7 +43,7 @@ async function listSeries() {
     showLoading()
     idSerie = localStorage.getItem('idSeriesStorege');
     console.log('carregando localstorage no lisSeries' + idSerie)
-    await axios.get(`${URL_BASE}/series/list`)
+    await axios.get(`${URL_BASE}/series/`)
         .then(response => {
             const data = response.data;
             console.log(data);
@@ -399,7 +399,7 @@ function loadDataScheduleSerie(data) {
                     row += ` <div class="w-150 text-center align-items-center" style="display: flex;
                     justify-content: center;"><div class="d-flex m-1 p-2 w-120 text-center" style="background-color:${elem.color}; color:white; border-radius: 5px;">
                                 <div>
-                                    <img src="${URL_BASE}/assets/img/${elem.icone}" width="28px" class="me-2 border-radius-lg m-1" alt="spotify">
+                                    <img src="${URL_FRONT}/assets/img/${elem.icone}" width="28px" class="me-2 border-radius-lg m-1" alt="spotify">
                                 </div>                    
                                 <div class="my-auto text-start">
                                     <h6 class="mb-0 font-weight-bold font-size-11" style="color:white;">${elem.abbreviation}</h6>

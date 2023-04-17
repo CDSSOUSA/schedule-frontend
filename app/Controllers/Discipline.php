@@ -30,6 +30,6 @@ class Discipline extends BaseController
             return redirect()->to('/');
         }
         
-        return view('discipline');
+        return view('discipline/discipline');
     }
 }

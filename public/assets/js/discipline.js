@@ -1,5 +1,7 @@
 var idDiscipline = localStorage.getItem('idDisciplineStorege');
+
 listDisciplines();
+
 
 async function listDisciplines() {
     showLoading()
@@ -142,6 +144,7 @@ if (addDisciplineForm) {
                     loadToast(typeSuccess, titleSuccess, messageSuccess);
 
                     listDisciplines();
+                    //showDisciplines(response.data.id)
 
                 }
             })
@@ -218,6 +221,7 @@ if (editDisciplineForm) {
                     loadToast(typeSuccess, titleSuccess, messageSuccess);
 
                     listDisciplines();
+                    //showDisciplines(dataForm.get('id'))
 
                 }
             })
@@ -280,6 +284,8 @@ if (delDisciplineForm) {
                     loadToast(typeSuccess, titleSuccess, messageSuccess);
 
                     listDisciplines();
+                    //dataForm.get(response.data.idEnd)
+                    //showDisciplines(response.data.idEnd)
 
                 }
             })

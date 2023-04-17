@@ -24,18 +24,18 @@ function defineTurno(target) {
 function listShift(shiftList) {
 
     const result = shiftList.split(';')
-        
+
     let option = ''
 
-    result.forEach( (el) =>{
+    result.forEach((el) => {
 
-       option += `<div class="form-check form-switch form-check-inline">
+        option += `<div class="form-check form-switch form-check-inline">
                     <input class="form-check-input" onclick="eraseAlert('fieldAlertErrorShiftAllocation');" name="nShift[]" value="${el}" type="checkbox" role="switch" id="checboxShift${el}">
                     <label class="form-check-label font-weight-bold text-sm" for="checboxShift${el}">${convertShift(el)}</label>
                     &nbsp;&nbsp;
                 </div>`
-    
-    })   
+
+    })
 
     return option
 
@@ -46,28 +46,28 @@ defineTurno('shiftAddDisponibilidade');
 
 listDisciplinesTeacher(localStorage.getItem('idTeacher'));
 
-async function validateToken (token){
+async function validateToken(token) {
     await axios.post(`${URL_BASE}/${URIS.login.validate}`, {}, {
         headers: {
             "Content-Type": "application/json",
             "Authorization": token,
         }
     })
-    .then(res => {
-        
-    })
-    .catch(error => {
-        loadToast(typeError,titleError,messageError)
-        loadLogin()
-    })
+        .then(res => {
+
+        })
+        .catch(error => {
+            loadToast(typeError, titleError, messageError)
+            loadLogin()
+        })
 }
 
 async function listDisciplinesTeacher(idTeacher) {
     showLoading()
-    await axios.get(`${URL_BASE}/teacher/listDisciplinesByTeacher/${idTeacher}`)
+    await axios.get(`${URL_BASE}/${URIS.teacher.listDiscipline}/${idTeacher}`)
         .then(response => {
 
-            validateToken(response.data[0].token)
+            //validateToken(response.data[0].token)
 
             const data = response.data;
             console.log(data);
@@ -96,7 +96,7 @@ async function listDisciplinesTeacher(idTeacher) {
 /* depois remover para o arquivo em discipline.js*/
 
 async function listDisciplines() {
-    await axios.get(`${URL_BASE}/discipline/list`)
+    await axios.get(`${URL_BASE}/${URIS.discipline.list}`)
         .then(response => {
             const data = response.data;
             console.log(data);
@@ -124,8 +124,8 @@ async function listTeachers() {
             // const data = response.data;
             // console.log(data);
             // console.log(data.length)
-             document.getElementById('li_teacher').innerHTML = list(data)
-             document.getElementById('amount_teachers').innerHTML = `  + ${data.length}`
+            document.getElementById('li_teacher').innerHTML = list(data)
+            document.getElementById('amount_teachers').innerHTML = `  + ${data.length}`
             //document.querySelector("#tb_teacher > tbody").innerHTML = `${loadDataTeacher(data)}`;
             //loadDataTable(data)
         }
@@ -161,7 +161,7 @@ function listRowDisciplines(data, idTeacher) {
             
             <div class="text-center" style="display:flex; justify-content: center; width:100%;">
                 <div>
-                    <img src="${URL_BASE}/assets/img/${e.icone}" width="32px" class="me-3 border-radius-lg p-1" alt="spotify">
+                    <img src="${URL_FRONT}/assets/img/${e.icone}" width="32px" class="me-3 border-radius-lg p-1" alt="spotify">
                 </div>
                 <div>                
                     ${e.description}<br> ${writeZero(e.amount)} aula(s)
@@ -237,7 +237,7 @@ const listAllocationTeacherDiscipline = async (idTeacher) => {
     //listAllocationModal.show();
     console.log(idTeacher);
 
-    await axios.get(`${URL_BASE}/allocation/showTeacher/${idTeacher}`)
+    await axios.get(`${URL_BASE}/${URIS.teacher.allocation.showTeacherOcupation}/${idTeacher}`)
 
         .then(response => {
             const data = response.data;
@@ -249,7 +249,7 @@ const listAllocationTeacherDiscipline = async (idTeacher) => {
                 //editModal.show();
                 //document.getElementById('idEdit').value = data[0].id
                 //document.getElementById('disc').innerHTML = `${listRowDisciplines(data)}`
-                defineRowsTable(startDayWeek,endDayWeek,qtdePosition,'#tb_allocationa > thead > tr')
+                defineRowsTable(startDayWeek, endDayWeek, qtdePosition, '#tb_allocationa > thead > tr')
                 document.querySelector("#tb_allocationa > tbody").innerHTML = `${loadDataSchedule(data)}`;
                 //document.getElementById('id_discipline').value = data[0].description
                 //document.getElementById('numeroAulas').value = data[0].amount
@@ -284,7 +284,7 @@ const listAllocationTeacherDisciplineAll = async (idTeacher) => {
     //listAllocationModal.show();
     console.log(idTeacher);
 
-    await axios.get(`${URL_BASE}/allocation/getTotalAllocationTeacher/${idTeacher}`)
+    await axios.get(`${URL_BASE}/${URIS.teacher.allocation.totalAllocationTeacher}/${idTeacher}`)
 
         .then(response => {
             const data = response.data;
@@ -331,7 +331,7 @@ const listAllocationTeacherDisciplineChecked = async (idTeacher) => {
     //listAllocationModal.show();
     console.log(idTeacher);
 
-    await axios.get(`${URL_BASE}/allocation/showTeacherChecked/${idTeacher}`)
+    await axios.get(`${URL_BASE}/${URIS.teacher.allocation.showTeacherChecked}/${idTeacher}`)
 
         .then(response => {
             const data = response.data;
@@ -342,7 +342,7 @@ const listAllocationTeacherDisciplineChecked = async (idTeacher) => {
                 //editModal.show();
                 //document.getElementById('idEdit').value = data[0].id
                 //document.getElementById('disc').innerHTML = `${listRowDisciplines(data)}`
-                defineRowsTable(startDayWeek,endDayWeek,qtdePosition,'#tb_allocation_teacher_del > thead > tr')
+                defineRowsTable(startDayWeek, endDayWeek, qtdePosition, '#tb_allocation_teacher_del > thead > tr')
                 document.querySelector("#tb_allocation_teacher_del > tbody").innerHTML = `${loadDataAllocationChecked(data)}`;
                 //document.getElementById('id_discipline').value = data[0].description
                 //document.getElementById('numeroAulas').value = data[0].amount
@@ -379,7 +379,7 @@ function loadDataAllocationChecked(data) {
         // let dayShow = ps === 1 ? convertDayWeek(dw) : '';           
         // let rowColor = dw % 2 === 0 ? 'table-secondary' : 'table-success'
 
-        for (let dw = startDayWeek; dw <= endDayWeek ; dw++) {
+        for (let dw = startDayWeek; dw <= endDayWeek; dw++) {
             row += `<td style="" class="text-center align-middle">`
 
             //row += `<th scope="row">${dw}${ps}</th>`
@@ -421,7 +421,7 @@ function loadDataSchedule(data) {
         // let dayShow = ps === 1 ? convertDayWeek(dw) : '';           
         // let rowColor = dw % 2 === 0 ? 'table-secondary' : 'table-success'
 
-        for (let dw = startDayWeek; dw <= endDayWeek ; dw++) {
+        for (let dw = startDayWeek; dw <= endDayWeek; dw++) {
             row += `<td style="" class="text-center align-middle">`
             //row += `<th scope="row">${dw}${ps}</th>`
 
@@ -432,7 +432,7 @@ function loadDataSchedule(data) {
                     <div class="w-150 text-center align-items-center" style="display: flex; justify-content: center;">
                         <div class="d-flex m-1 p-2 w-120 text-center" style="background-color:${elem.color}; color:white; border-radius: 5px;">
                                 <div>
-                                    <img src="http://localhost/gerenciador-horario/public/assets/img/${elem.icone}" width="28px" class="border-radius-lg m-1" alt="spotify">
+                                    <img src="../public/assets/img/${elem.icone}" width="28px" class="border-radius-lg m-1" alt="spotify">
                                 </div>                    
                                 <div class="my-auto text-start">
                                     <h6 class="mb-0 font-weight-bold font-size-11" style="color:white;">${elem.abbreviation}</h6>                                    
@@ -446,8 +446,8 @@ function loadDataSchedule(data) {
         }
         row += `</tr>`
     }
-    return row;  
-                            
+    return row;
+
 }
 
 async function getDataTeacher(id, locale) {
@@ -520,58 +520,79 @@ if (addTeacherForm) {
         })
             .then(response => {
                 console.log(response.data.id)
-                if (response.data.error) {
+                //if (response.data.error) {
 
-                    if (response.data.code == 500) {
+                // if (response.data.code == 500) {
 
-                        addTeacherForm.reset();
-                        addTeacherModal.hide();
-                        loadToast(typeError, titleError, messageError);
-                        listDisciplinesTeacher(localStorage.getItem('idTeacher'))
+                //     addTeacherForm.reset();
+                //     addTeacherModal.hide();
+                //     loadToast(typeError, titleError, messageError);
+                //     listDisciplinesTeacher(localStorage.getItem('idTeacher'))
 
-                    }
-                    console.log(response.data)
-                    document.getElementById('msgAlertError').innerHTML = response.data.msg
+                // }
+                // console.log(response.data)
+                // document.getElementById('msgAlertError').innerHTML = response.data.msg
 
-                    const er = response.data.msgs;
-                    console.log(er)
-                    // er.forEach( (e,indice) => {
+                // const er = response.data.msgs;
+                // console.log(er)
+                // er.forEach( (e,indice) => {
 
-                    //     validateErros(e, 'fieldlertError' + indice);
-                    // })
-                    validateErros(response.data.msgs.name, 'fieldlertErrorname')
-                    validateErros(response.data.msgs.amount, 'fieldlertErroramount')
-                    validateErros(response.data.msgs.disciplines, 'fieldlertErrordisciplines')
-                    validateErros(response.data.msgs.color, 'fieldlertErrorcolor')
-                    //loadToast(titleSuccess, bodySuccess, statusSuccess);
-                    //if(response.data.msgs.description){
-                    //     document.getElementById('fieldlertErrorDescription').innerHTML = `<i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ${response.data.msgs.description}!`
-                    // } else {
-                    //     document.getElementById('fieldlertErrorDescription').innerHTML ='';
-                    // }
+                //     validateErros(e, 'fieldlertError' + indice);
+                // })
+                // validateErros(response.data.msgs.name, 'fieldlertErrorname')
+                // validateErros(response.data.msgs.amount, 'fieldlertErroramount')
+                // validateErros(response.data.msgs.disciplines, 'fieldlertErrordisciplines')
+                // validateErros(response.data.msgs.color, 'fieldlertErrorcolor')
+                //loadToast(titleSuccess, bodySuccess, statusSuccess);
+                //if(response.data.msgs.description){
+                //     document.getElementById('fieldlertErrorDescription').innerHTML = `<i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ${response.data.msgs.description}!`
+                // } else {
+                //     document.getElementById('fieldlertErrorDescription').innerHTML ='';
+                // }
 
-                } else {
-                    // load();
-                    // //console.log(response.data)
-                    // location.reload();
-                    addTeacherModal.hide();
-                    addTeacherForm.reset();
-                    //loadToast(titleSuccess, bodySuccess, success);
-                    //loadDataTable(response.data)
-                    //loada();
-                    //listSeries();
-                    //location.reload();
-                    //listTeacDisc();
-                    localStorage.removeItem('idEndTeacher');
-                    localStorage.setItem('idEndTeacher', response.data.id)
-                    localStorage.setItem('idTeacher', response.data.id)
-                    loadToast(typeSuccess, titleSuccess, messageSuccess);
+                // } else {
+                // load();
+                // //console.log(response.data)
+                // location.reload();
+                addTeacherModal.hide();
+                addTeacherForm.reset();
+                //loadToast(titleSuccess, bodySuccess, success);
+                //loadDataTable(response.data)
+                //loada();
+                //listSeries();
+                //location.reload();
+                //listTeacDisc();
+                localStorage.removeItem('idEndTeacher');
+                localStorage.setItem('idEndTeacher', response.data.id)
+                localStorage.setItem('idTeacher', response.data.id)
+                loadToast(typeSuccess, titleSuccess, messageSuccess);
 
-                    listDisciplinesTeacher(localStorage.getItem('idTeacher'))
+                listDisciplinesTeacher(localStorage.getItem('idTeacher'))
 
-                }
+                //}
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+
+
+                // if (response.data.code == 500) {
+
+                //     addTeacherForm.reset();
+                //     addTeacherModal.hide();
+                //     loadToast(typeError, titleError, messageError);
+                //     listDisciplinesTeacher(localStorage.getItem('idTeacher'))
+
+                // }
+                //console.log(error.response.data.messages.msg)
+                document.getElementById('msgAlertError').innerHTML = error.response.data.messages.msg
+
+                validateErros(error.response.data.messages.msgs.name, 'fieldlertErrorname')
+                validateErros(error.response.data.messages.msgs.amount, 'fieldlertErroramount')
+                validateErros(error.response.data.messages.msgs.disciplines, 'fieldlertErrordisciplines')
+                validateErros(error.response.data.messages.msgs.color, 'fieldlertErrorcolor')
+
+                console.log(error)
+
+            })
     });
 }
 
@@ -580,7 +601,7 @@ const editTeacherModal = new bootstrap.Modal(document.getElementById('editTeache
 
 async function editTeacher(idTeacher) {
 
-    await axios.get(`${URL_BASE}/teacher/edit/${idTeacher}`)
+    await axios.get(`${URL_BASE}/${URIS.teacher.show}/${idTeacher}`)
         .then(response => {
             const data = response.data;
             console.log(data);
@@ -667,7 +688,7 @@ if (addFormTeacDisc) {
         e.preventDefault();
 
         const dataForm = new FormData(addFormTeacDisc);
-        await axios.post(`${URL_BASE}/teacDisc/create`, dataForm, {
+        await axios.post(`${URL_BASE}/${URIS.teacher.teacDisc.create}`, dataForm, {
             headers: {
                 "Content-Type": "application/json"
             }
@@ -709,7 +730,8 @@ if (addFormTeacDisc) {
 
                 }
             })
-            .catch(error => console.log(error))
+            .catch(error => { 
+                console.log(error) })
     })
 }
 
@@ -718,7 +740,7 @@ if (addFormTeacDisc) {
 
 const editTeacherDisciplineModal = new bootstrap.Modal(document.getElementById('editTeacherDisciplineModal'));
 async function editTeacherDiscipline(idTeacherDiscipline) {
-    await axios.get(URL_BASE + '/teacDisc/edit/' + idTeacherDiscipline)
+    await axios.get(`${URL_BASE}/${URIS.teacher.teacDisc.show}/${idTeacherDiscipline}`)
         .then(response => {
             const data = response.data;
             console.log(data);
@@ -755,7 +777,7 @@ if (editTeacherDisciplineForm) {
     editTeacherDisciplineForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         const dataForm = new FormData(editTeacherDisciplineForm);
-        await axios.post(`${URL_BASE}/teacDisc/update`, dataForm, {
+        await axios.post(`${URL_BASE}/${URIS.teacher.teacDisc.update}`, dataForm, {
             headers: {
                 "Content-Type": "application/json"
             }
@@ -795,35 +817,35 @@ console.log(addAllocationForm)
 
 function listOption() {
 
-    let row = ""   
-       
-        for (let ps = 1; ps <= qtdePosition; ps++) {
-            row +=`
+    let row = ""
+
+    for (let ps = 1; ps <= qtdePosition; ps++) {
+        row += `
             <tr class="text-center">
                 <td class="align-middle text-center"><span class="text-gray">${ps} ª aula</span>
                 </td>`
-                for (let dw = startDayWeek; dw <= endDayWeek ; dw++) {
-    
-                    row +=`<td class="align-middle text-center">
+        for (let dw = startDayWeek; dw <= endDayWeek; dw++) {
+
+            row += `<td class="align-middle text-center">
                         <div class="form-check form-switch">
                             <input class="form-check-input" onclick="eraseAlert('fieldAlertErrorDayWeekAllocation');" name="nDayWeek[]" value="${ps};${dw}" type="checkbox" role="switch" id="dayWeek${ps}${dw}">
                             <label class="form-check-label" for="dayWeekdayWeek${ps}${dw}"></label>
                         </div>
                     </td>`
-                }
-            row += `</tr>`
         }
+        row += `</tr>`
+    }
 
-        return row
+    return row
 
-       
+
 }
 
 async function addAllocationTeacher(idTeacher) {
 
     //addAllocationModal.show();
     //addAllocationForm.reset();
-    defineRowsTable(startDayWeek,endDayWeek,qtdePosition,'#tb_allocation_teacher_add > thead > tr')
+    defineRowsTable(startDayWeek, endDayWeek, qtdePosition, '#tb_allocation_teacher_add > thead > tr')
     document.querySelector('#tb_allocation_teacher_add > tbody').innerHTML = `${listOption()}`
     addAllocationForm.reset();
     document.getElementById('idTeacherAllocation').value = idTeacher
@@ -880,34 +902,34 @@ if (addAllocationForm) {
 
 
         const dataForm = new FormData(addAllocationForm);
-        await axios.post(`${URL_BASE}/allocation/create`, dataForm, {
+        await axios.post(`${URL_BASE}/${URIS.teacher.allocation.create}`, dataForm, {
             headers: {
                 "Content-Type": "application/json"
             }
         })
             .then(response => {
                 console.log(response.data.id_teacher);
-                if (response.data.error) {
-                    console.log(response.data.msg)
-                    document.getElementById('msgAlertErrorTeacherAllocationAdd').innerHTML = response.data.msg
-                    //document.getElementById("msgAlertSuccess").innerHTML = "";
-                    //document.getElementById('idTeac').value = id
-                    //document.getElementById('msgAlertError').innerHTML = response.data.msg
-                    //loadToast('oi','oila','danger');
+                // if (response.data.error) {
+                //     console.log(response.data.msg)
+                //     document.getElementById('msgAlertErrorTeacherAllocationAdd').innerHTML = response.data.msg
+                //     //document.getElementById("msgAlertSuccess").innerHTML = "";
+                //     //document.getElementById('idTeac').value = id
+                //     //document.getElementById('msgAlertError').innerHTML = response.data.msg
+                //     //loadToast('oi','oila','danger');
 
-                    //validateErros(response.data.msgs.name, 'fieldlertErrorname')
-                    // if(response.data.error.code == 1062){
-                    //     validateErros(response.data.msgs.disciplinesTeacher, 'fieldlertErrordisciplinesTechDisc')
-                    // }
-                    validateErros(response.data.msgs.nDayWeek, 'fieldAlertErrorDayWeekAllocation')
-                    validateErros(response.data.msgs.disciplinesTeacher, 'fieldAlertErrorDisciplinesAllocation')
-                    //validateErros(response.data.msgs.nPosition, 'fieldlertErrorPosition')
-                    validateErros(response.data.msgs.nShift, 'fieldAlertErrorShiftAllocation')
+                //     //validateErros(response.data.msgs.name, 'fieldlertErrorname')
+                //     // if(response.data.error.code == 1062){
+                //     //     validateErros(response.data.msgs.disciplinesTeacher, 'fieldlertErrordisciplinesTechDisc')
+                //     // }
+                //     validateErros(response.data.msgs.nDayWeek, 'fieldAlertErrorDayWeekAllocation')
+                //     validateErros(response.data.msgs.disciplinesTeacher, 'fieldAlertErrorDisciplinesAllocation')
+                //     //validateErros(response.data.msgs.nPosition, 'fieldlertErrorPosition')
+                //     validateErros(response.data.msgs.nShift, 'fieldAlertErrorShiftAllocation')
 
-                    //addForm.reset()
+                //     //addForm.reset()
 
 
-                } else {
+                // } else {
                     document.getElementById('msgAlertErrorTeacherAllocationAdd').innerHTML = '';
                     addAllocationForm.reset();
                     addAllocationModal.hide();
@@ -921,9 +943,16 @@ if (addAllocationForm) {
                     listDisciplinesTeacher(localStorage.getItem('idTeacher'))
 
 
-                }
+                //}
             })
-            .catch(error => console.log(error))
+            .catch(error => { 
+                console.log(error)
+                document.getElementById('msgAlertErrorTeacherAllocationAdd').innerHTML = error.response.data.messages.msg
+                validateErros(error.response.data.messages.msgs.nDayWeek, 'fieldAlertErrorDayWeekAllocation')
+                validateErros(error.response.data.messages.msgs.disciplinesTeacher, 'fieldAlertErrorDisciplinesAllocation')
+                validateErros(error.response.data.messages.msgs.nShift, 'fieldAlertErrorShiftAllocation')
+
+            })
     })
 }
 
@@ -975,7 +1004,7 @@ if (delAllocationTeacherForm) {
         //console.log(dataForm.get('id'));
         //const id = dataForm.get('id');
 
-        await axios.post(`${URL_BASE}/allocation/del`, dataForm, {
+        await axios.post(`${URL_BASE}/${URIS.teacher.allocation.delete}`, dataForm, {
             headers: {
                 "Content-Type": "application/json"
             }
@@ -1012,7 +1041,7 @@ if (delAllocationTeacherForm) {
 
 async function getDataTeacherDiscipline(idTeacher) {
     totalWorkload = 0;
-    await axios.get(`${URL_BASE}/teacher/listDisciplinesByTeacher/${idTeacher}`)
+    await axios.get(`${URL_BASE}/${URIS.teacher.listDiscipline}/${idTeacher}`)
         .then(response => {
             const data = response.data;
 
@@ -1091,7 +1120,7 @@ function loadDataDisciplines(data, term) {
 
 const deleteModal = new bootstrap.Modal(document.getElementById('delTeacherDisciplineModal'));
 async function delTeacherDiscipline(idTeacherDiscipline) {
-    await axios.get(URL_BASE + '/teacDisc/delete/' + idTeacherDiscipline)
+    await axios.get(`${URL_BASE}/${URIS.teacher.teacDisc.show}/${idTeacherDiscipline}`)
         .then(response => {
             //console.log('idDisciplinaTeachr: '+id)
             const data = response.data;
@@ -1105,7 +1134,7 @@ async function delTeacherDiscipline(idTeacherDiscipline) {
                            
                             <div class="m-1 p-2 text-center" style="background-color:${data[0].color}; color:white; border-radius: 5px;">
                                 <div>
-                                    <img src="${URL_BASE}/assets/img/${data[0].icone}" width="32px"  class="me-3 border-radius-lg m-2" alt="logo">
+                                    <img src="${URL_FRONT}/assets/img/${data[0].icone}" width="32px"  class="me-3 border-radius-lg m-2" alt="logo">
                                 </div>
                                 <div class="my-auto">
                                     <h6 class="mb-0 text-sm font-weight-bold" style="color:white; font-weight:bold"> ${data[0].description}</h6>
@@ -1133,18 +1162,18 @@ if (deleteForm) {
         console.log(dataForm.get('idTeacher'));
 
 
-        await axios.post(`${URL_BASE}/teacDisc/del`, dataForm, {
+        await axios.post(`${URL_BASE}/${URIS.teacher.teacDisc.delete}`, dataForm, {
             headers: {
                 "Content-Type": "application/json"
             }
         })
             .then(response => {
 
-                if (response.data.error) {
+                //if (response.data.error) {
                     // document.getElementById('msgAlertError').innerHTML = response.data.msg
                     // document.getElementById('fieldlertError').textContent = 'Preenchimento obrigatório!'
                     // document.getElementById("msgAlertSuccess").innerHTML = "";
-                } else {
+                //} else {
 
                     // document.getElementById('msgAlertError').innerHTML = '';
                     // document.getElementById('fieldlertError').textContent = '';
@@ -1159,7 +1188,7 @@ if (deleteForm) {
                     loadToast(typeSuccess, titleSuccess, messageSuccess);
                     listDisciplinesTeacher(localStorage.getItem('idTeacher'))
 
-                }
+                //}
             })
             .catch(error => console.log(error))
     })
@@ -1351,7 +1380,7 @@ if (deleteScheduleForm) {
 
 async function getSeries(id, locale) {
 
-    await axios.get(`${URL_BASE}/series/show/${id}`)
+    await axios.get(`${URL_BASE}/${URIS.series.show}/${id}`)
         .then(response => {
             console.log(response.data)
             document.getElementById(locale).innerText = `${response.data[0].description}º${response.data[0].classification} - ${convertShift(response.data[0].shift)}`
@@ -1362,7 +1391,7 @@ async function getSeries(id, locale) {
 function printReportTeacher(id) {
     //listAllocationModal.hide();
 
-    window.open(`${URL_BASE}/report/teacher/${id}`);
+    window.open(`${URL_BASE}/${URIS.report.teacher}/${id}`);
 }
 
 const replaceTeacherModal = new bootstrap.Modal(document.getElementById('replaceTeacherModal'));
@@ -1372,32 +1401,32 @@ const replaceTeacherForm = document.getElementById('replaceTeacherForm');
 async function replaceTeacher(idTeacher) {
 
     document.getElementById('msgAlertErrorTeacherReplace').innerHTML = '';
-    console.log("id do teacher: "+ idTeacher)
+    console.log("id do teacher: " + idTeacher)
     replaceTeacherForm.reset()
 
     document.getElementById('idTeacherReplace').value = idTeacher
 
 
-    let select = document.querySelector('#newTeacher');    
-    
-    while(select.length){
+    let select = document.querySelector('#newTeacher');
+
+    while (select.length) {
         select.remove(0);
     }
-    select = document.querySelector('#newTeacher'); 
-   
-    getDataTeacher(idTeacher, 'nameTeacherReplace')    
-    
-    
+    select = document.querySelector('#newTeacher');
+
+    getDataTeacher(idTeacher, 'nameTeacherReplace')
+
+
     select.options[select.options.length] = new Option('Selecione ...', '');
     await axios.get(`${URL_BASE}/${URIS.teacher.listOff}/${idTeacher}`)
-    .then(response => {
-        response.data.forEach((el,index)=>{
-            
-            select.options[select.options.length] = new Option(`${index + 1} - ${el.name}`, el.id);
+        .then(response => {
+            response.data.forEach((el, index) => {
+
+                select.options[select.options.length] = new Option(`${index + 1} - ${el.name}`, el.id);
+            })
+
         })
-       
-    })
-    .catch(error => console.log(error))   
+        .catch(error => console.log(error))
 
 }
 
@@ -1414,31 +1443,31 @@ if (replaceTeacherForm) {
                 "Content-Type": "application/json"
             }
         })
-        .then(response => {
-            console.log(response.data)
-            if (response.data.error) {
-                document.getElementById('msgAlertErrorTeacherReplace').innerHTML = response.data.msg
-                // document.getElementById('fieldlertError').textContent = 'Preenchimento obrigatório!'
-                // document.getElementById("msgAlertSuccess").innerHTML = "";
-            } else {
-                // console.log('deu certo')
-                 document.getElementById('msgAlertErrorTeacherReplace').innerHTML = '';
-                // document.getElementById('fieldlertError').textContent = '';
-                // //editModal.hide();
-                // document.getElementById('msgAlertSuccess').innerHTML = response.data.msg
-                replaceTeacherModal.hide();
-                //localStorage.removeItem('idEndTeacher');
-                //localStorage.setItem('idEndTeacher', dataForm.get('idTeacher'))
-               // localStorage.setItem('idTeacher', dataForm.get('idTeacher'))
+            .then(response => {
+                console.log(response.data)
+                if (response.data.error) {
+                    document.getElementById('msgAlertErrorTeacherReplace').innerHTML = response.data.msg
+                    // document.getElementById('fieldlertError').textContent = 'Preenchimento obrigatório!'
+                    // document.getElementById("msgAlertSuccess").innerHTML = "";
+                } else {
+                    // console.log('deu certo')
+                    document.getElementById('msgAlertErrorTeacherReplace').innerHTML = '';
+                    // document.getElementById('fieldlertError').textContent = '';
+                    // //editModal.hide();
+                    // document.getElementById('msgAlertSuccess').innerHTML = response.data.msg
+                    replaceTeacherModal.hide();
+                    //localStorage.removeItem('idEndTeacher');
+                    //localStorage.setItem('idEndTeacher', dataForm.get('idTeacher'))
+                    // localStorage.setItem('idTeacher', dataForm.get('idTeacher'))
 
-                loadToast(typeSuccess, titleSuccess, messageSuccess);
-                listDisciplinesTeacher(localStorage.getItem('idTeacher'))
+                    loadToast(typeSuccess, titleSuccess, messageSuccess);
+                    listDisciplinesTeacher(localStorage.getItem('idTeacher'))
 
-            }
-        })
-        .catch(error => {
-            console.log(error)
-        })
+                }
+            })
+            .catch(error => {
+                console.log(error)
+            })
         console.log(dataForm.get('newTeacher'))
         console.log(dataForm.get('idTeacher'))
     })

@@ -1,11 +1,7 @@
 <?php
 
-use App\Libraries\GenerateToken;
-use Config\Services;
-
 echo $this->extend('layout/default');
 echo $this->section('content');
-
 
 ?> 
 
@@ -13,10 +9,10 @@ echo $this->section('content');
     <!-- Navbar -->
     <?php //include('breadcrumb.html'); ?>
     <div class="container-fluid py-4">
-      <?php include('discipline/menu-widget.html'); ?>
-      <?php include('discipline/content.html'); ?>
+      <?php include('menu-widget.html'); ?>
+      <?php include('content.html'); ?>
       <div class="row my-4"></div>
-      <?php include('footer.html'); ?>
+      <?php include('../public/assets/pages/footer.html'); ?>
     </div>
   </main>
 
@@ -24,8 +20,8 @@ echo $this->section('content');
   ?>
 
   <?php //include('schedule/modal/add.html'); ?>
-  <?php include('discipline/modal/delete.html'); ?>
-  <?php include('discipline/modal/edit.html'); ?>
+  <?php include('modal/delete.html'); ?>
+  <?php include('modal/edit.html'); ?>
   <?php //include('schedule/modal/list-series.html'); ?>
   
   <?= $this->endSection(); 

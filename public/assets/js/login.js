@@ -14,9 +14,11 @@ console.log(loginForm)
 
 if (loginForm) {
 
+   
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const dataForm = new FormData(loginForm);
+        console.log(dataForm.get('token'))
 
         try {
             await axios.post(`${URL_BASE}/${URIS.login.in}`, dataForm, {
@@ -25,14 +27,15 @@ if (loginForm) {
                 }
             })
                 .then(response => {
-                    if (response.data.error) {
+                    console.log(response.data)
+                    //if (response.data.error) {
 
-                        console.log('errro')
-                        document.getElementById('msgAlert').innerHTML = response.data.msg
-                        document.getElementById('msgAlertToken').textContent = response.data.msgs.token
+                       // console.log('errro')
+                        //document.getElementById('msgAlert').innerHTML = response.data.message.msg
+                        //document.getElementById('msgAlertToken').textContent = response.data.message.msgs.token
                         
 
-                    } else {
+                    //} //else {
                         axios.post(`${URL_BASE}/${URIS.login.validate}`, {}, {
                             headers: {
                                 "Content-Type": "application/json",
@@ -48,20 +51,38 @@ if (loginForm) {
 
                             })
                             .catch(error => {
+                                console.log(error)
 
-                                loadToast(typeError,titleError,messageError)
-                                //console.log(error)
+                                //loadToast(typeError,titleError,messageError)
+                                loadToast(typeError, titleError, new Message(error.response.data.message).getMessage());
+                               
                                 //redirectLogin()
                             })
 
                         //redirectLogin()
 
                     }
-                })
-                .catch(
+                )
+                .catch (
                     error => {
-                        loadToast(typeError,titleError,messageError)
-                        console.log(error)
+                        //loadToast(typeError,titleError,messageError)
+                        //console.log(error.response.data.error)
+
+                        if(error.response.data.error == 400) {                            
+                           
+                            loadToast(typeError, titleError, new Message(error.response.data.messages.msgs.token).getMessage());
+                            document.getElementById('msgAlert').innerHTML = error.response.data.messages.msg
+                            document.getElementById('msgAlertToken').innerHTML = error.response.data.messages.msgs.token
+
+                        } else {
+
+                            loadToast(typeError, titleError, new Message(error.response.data.messages.error).getMessage());
+                        }
+                       
+                        // //validateErros(error.response.data.messages.msgs.token, 'msgAlertToken')
+                        // //console.log(error)                
+                        // 
+
                     })
         } catch (error) {
 
