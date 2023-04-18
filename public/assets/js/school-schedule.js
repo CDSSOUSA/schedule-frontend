@@ -56,7 +56,7 @@ async function listSchedule(shift) {
     shiftGlobal = shift
     document.getElementById('define-shift-heard').textContent = convertShift(shift)
     document.getElementById('define-shift-menu').textContent = convertShift(shift)
-    await axios.get(`${URL_BASE}/horario/api/list/${shift}`)
+    await axios.get(`${URL_BASE}/${URIS.schedule.list}/${shift}`)
         .then(response => {          
             const data = response.data;
             console.log(data);
@@ -94,7 +94,7 @@ async function listScheduleSeries(idSerie) {
     getSeries(idSerie, 'descriptionSerieFake')
     //getSeries(idSerie, 'descriptionFake');
 
-    await axios.get(`${URL_BASE}/horario/api/listSeries/${idSerie}`)
+    await axios.get(`${URL_BASE}/${URIS.schedule.listSeries}/${idSerie}`)
         .then(response => {
             const data = response.data;
             console.log(data);
@@ -150,7 +150,7 @@ function loadDataScheduleSerie(data) {
                     row += ` <div class="w-150 text-center align-items-center" style="display: flex;
                     justify-content: center;"><div class="d-flex m-1 p-2 w-120 text-center" style="background-color:${elem.color}; color:white; border-radius: 5px;">
                                 <div>
-                                    <img src="${URL_BASE}/assets/img/${elem.icone}" width="28px" class="me-2 border-radius-lg m-1" alt="spotify">
+                                    <img src="${URL_FRONT}/assets/img/${elem.icone}" width="28px" class="me-2 border-radius-lg m-1" alt="spotify">
                                 </div>                    
                                 <div class="my-auto text-start">
                                     <h6 class="mb-0 font-weight-bold font-size-11" style="color:white;">${elem.abbreviation}</h6>
@@ -172,12 +172,12 @@ function loadDataScheduleSerie(data) {
 function printReportSchedule(shift) {
     listScheduleSeriesModal.hide();
     console.log(shift)
-    window.open(`${URL_BASE}/report/schedule/${shift}`);
+    window.open(`${URL_REPORT}/${URIS.report.schedule}/${shift}`);
 }
 function printReport(idSerie) {
     listScheduleSeriesModal.hide();
 
-    window.open(`${URL_BASE}/report/series/${idSerie}`);
+    window.open(`${URL_REPORT}/${URIS.report.series}/${idSerie}`);
 }
 
 function loadDataSchedule(data) {
@@ -232,7 +232,7 @@ function loadDataSchedule(data) {
 
 function listDPS(idSerie, day, position, shift) {
 
-    axios.get(`${URL_BASE}/horario/api/listDPS/${idSerie}/${day}/${position}/${shift}`)
+    axios.get(`${URL_BASE}/${URIS.schedule.listDPS}/${idSerie}/${day}/${position}/${shift}`)
         .then(response => {
 
             console.log(response);
@@ -244,7 +244,7 @@ function listDPS(idSerie, day, position, shift) {
             <div class="m-1 p-2 w-120" style="background-color: transparent; border: 1px solid #9a9a9c; color:black; border-radius: 5px; display: flex;
             justify-content: center;" data-toggle="tooltip" data-placement="top" title="Aguardando alocação!">
             <div>
-                <img src="${URL_BASE}/assets/img/discipline-vague.png" width="28px" class="me-2 border-radius-lg m-1" alt="spotify">
+                <img src="${URL_FRONT}/assets/img/discipline-vague.png" width="28px" class="me-2 border-radius-lg m-1" alt="spotify">
             </div>
             <div class="my-auto">
                 <h6 class="mb-0 text-sm font-weight-bold"> VAGO</h6>
@@ -260,7 +260,7 @@ function listDPS(idSerie, day, position, shift) {
                 justify-content: center; ">
                 
                     <div>
-                        <img src="${URL_BASE}/assets/img/${response.data.icone}" width="24px" class="me-2 border-radius-lg m-1" alt="spotify">
+                        <img src="${URL_FRONT}/assets/img/${response.data.icone}" width="24px" class="me-2 border-radius-lg m-1" alt="spotify">
                     </div>
                     <div class="my-auto text-center">
                         <h6 class="mb-0 font-weight-bold font-size-11" style="color:white;"> ${response.data.name.split(" ", 1)}</h6>
@@ -277,7 +277,7 @@ function listDPS(idSerie, day, position, shift) {
                 <a href="#" onclick = "addSchedule(${idSerie},${position},${day},'${shift}')" data-bs-toggle="modal" data-bs-target="#addScheduleTeacherModal" title="Clique para adicionar!">
             <div class="d-flex m-1 p-2 w-120" style="background-color: #343a40; color:white; border-radius: 5px;">
             <div>
-                <img src="${URL_BASE}/assets/img/discipline-default.png" width="24px" class="me-3 border-radius-lg m-2" alt="spotify">
+                <img src="${URL_FRONT}/assets/img/discipline-default.png" width="24px" class="me-3 border-radius-lg m-2" alt="spotify">
             </div>
             <div class="my-auto">
                 <h6 class="mb-0 text-sm font-weight-bold" style="color:white;"> LIVRE</h6>
@@ -319,7 +319,7 @@ async function addSchedule(idSerie, position, dayWeek, shift) {
 
     getSeries(idSerie, 'idSerieFake');
 
-    await axios.get(`${URL_BASE}/horario/api/getAllocation/${idSerie}/${dayWeek}/${position}/${shift}`)
+    await axios.get(`${URL_BASE}/${URIS.schedule.allocation}/${idSerie}/${dayWeek}/${position}/${shift}`)
         .then(response => {
             const data = response.data;
             data.forEach(element => {
@@ -330,7 +330,7 @@ async function addSchedule(idSerie, position, dayWeek, shift) {
 
               <div class="d-flex">
                 <div>
-                  <img src="${URL_BASE}/assets/img/${element.icone}" width="28px" class="me-1 border-radius-lg p-1" alt="">
+                  <img src="${URL_FRONT}/assets/img/${element.icone}" width="28px" class="me-1 border-radius-lg p-1" alt="">
                 </div>
                 <div class="my-auto" style="color:white">
                   <h6 class="mb-0 font-weight-bold font-size-11" style="color:white">${element.name.split(" ", 1)}</h6>
@@ -354,7 +354,7 @@ if (addScheduleForm) {
         e.preventDefault();
         //load();
         const dataForm = new FormData(addScheduleForm);
-        await axios.post(`${URL_BASE}/horario/api/create`, dataForm, {
+        await axios.post(`${URL_BASE}/${URIS.schedule.create}`, dataForm, {
             headers: {
                 "Content-Type": "application/json"
             }
@@ -414,7 +414,7 @@ if (addScheduleForm) {
 const deleteScheduleModal = new bootstrap.Modal(document.getElementById('delScheduleTeacherModal'));
 
 async function delScheduleTeacher(id) {
-    await axios.get(`${URL_BASE}/horario/api/delete/${id}`)
+    await axios.get(`${URL_BASE}/${URIS.schedule.show}/${id}`)
         .then(response => {
             const data = response.data;
             console.log(data);
@@ -424,7 +424,7 @@ async function delScheduleTeacher(id) {
                 document.getElementById('disciplineDel').innerHTML = `${data.name} <br> <span>${data.abbreviation}</span> - <span id="idSerieDel">${getSeries(data.id_series, 'idSerieDel')}</span>`
                     ;
                 document.getElementById('positonDel').innerText = `${data.position} ª AULA - `
-                document.getElementById('dayWeekDel').innerText = `${convertDayWeek(data.dayWeek, true)}`
+                document.getElementById('dayWeekDelDescription').innerText = `${convertDayWeek(data.dayWeek, true)}`
                 document.getElementById('shiftDel').value = data.shift
                 document.getElementById('dayWeekDel').value = data.dayWeek
                 document.getElementById('positionDel').value = data.position
@@ -433,7 +433,7 @@ async function delScheduleTeacher(id) {
                 document.getElementById('color').style.backgroundColor = data.color
                 //document.getElementById('headerScheduleRemove').style.backgroundColor = data.color
                 //document.getElementById('headerScheduleRemove').style.color = '#FFF'
-                document.getElementById('image-disc').innerHTML = ` <img src="${URL_BASE}/assets/img/${data.icone}" width="28px" class="me-3 border-radius-lg m-2" alt="spotify">`
+                document.getElementById('image-disc').innerHTML = ` <img src="${URL_FRONT}/assets/img/${data.icone}" width="28px" class="me-3 border-radius-lg m-2" alt="spotify">`
             }
         })
         .catch(error => console.log(error))

@@ -371,7 +371,7 @@ async function listScheduleSeries(idSerie) {
 
 function printReport(idSerie) {
 
-    window.open(`${URL_BASE}/${URIS.report.series}/${idSerie}`);
+    window.open(`${URL_REPORT}/${URIS.report.series}/${idSerie}`);
 }
 
 function loadDataScheduleSerie(data) {

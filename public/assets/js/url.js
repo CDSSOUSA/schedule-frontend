@@ -1,5 +1,6 @@
 const URL_BASE = 'http://localhost/schedule-backend/public';
 const URL_FRONT = 'http://localhost/schedule-frontend/public';
+const URL_REPORT = 'http://localhost/schedule-report/public';
 
 const URIS = {
     login: {
@@ -32,9 +33,14 @@ const URIS = {
     },   
     schedule: {
         delete: "schedule/del",
+        create: "schedule/create",
         listDiscipline: 'schedule/listDisciplines',
         listSeries: "schedule/listSeries",
-        replace: "schedule/replace"        
+        replace: "schedule/replace",
+        list: "schedule/list",  
+        allocation: "schedule/getAllocation",
+        listDPS: "schedule/listDPS",  
+        show: "schedule/show"
     },
     discipline: {
         create: "discipline/create",
@@ -61,7 +67,8 @@ const URIS = {
     },
     report: {
         series: "report/series",
-        teacher: "report/teacher"
+        teacher: "report/teacher",
+        schedule: "report/schedule"
     }
 }
 

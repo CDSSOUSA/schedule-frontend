@@ -1391,7 +1391,7 @@ async function getSeries(id, locale) {
 function printReportTeacher(id) {
     //listAllocationModal.hide();
 
-    window.open(`${URL_BASE}/${URIS.report.teacher}/${id}`);
+    window.open(`${URL_REPORT}/${URIS.report.teacher}/${id}`);
 }
 
 const replaceTeacherModal = new bootstrap.Modal(document.getElementById('replaceTeacherModal'));
