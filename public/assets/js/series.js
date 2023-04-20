@@ -17,14 +17,14 @@ function listShift(shiftList) {
 
     const result = shiftList.split(';')
     console.log(result)
-    
+
     let option = `<option value="">Selecione ...</option>`;
 
-    result.forEach( (el) =>{
+    result.forEach((el) => {
 
-       option += `<option value=${el}>${convertShift(el)}</option>`
-    
-    })   
+        option += `<option value=${el}>${convertShift(el)}</option>`
+
+    })
 
     return option
 
@@ -78,7 +78,7 @@ async function showSeries(idSerie) {
     let icon = 'fa-check-double'
     let colorText = 'text-success'
 
-    
+
     //await axios.get(`${URL_BASE}/${URIS.discipline.show}/${idDiscipline}`)
     await axios.get(`${URL_BASE}/${URIS.series.show}/${idSerie}`)
         .then(response => {
@@ -94,7 +94,7 @@ async function showSeries(idSerie) {
                 // document.getElementById('amount').innerText = writeZero(data.amount)
                 // document.getElementById('icone').innerHTML = `<img class="w-25 position-relative z-index-2 pt-4 mb-3" src="../public/assets/img/${data.icone}" alt="rocket">`
 
-              
+
                 let button = `<a class="btn btn-link text-dark px-3 mb-0 ${display}" href="#" onclick="editSeries(${data[0].id})"  data-bs-toggle="modal" data-bs-target="#editSeriesModal">
                 <i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Editar
                 </a>`
@@ -107,10 +107,10 @@ async function showSeries(idSerie) {
                     button += `
                     <a class="btn btn-link ${colorText} text-gradient px-3 mb-0" href="#" onclick="editSeriesStatus(${data[0].id}, '${data[0].status}')" data-bs-toggle="modal" data-bs-target="#editSeriesStatusModal"><i class="far ${icon} me-2" aria-hidden="true"></i>${title}</a>
                 `
-                } 
+                }
                 // else {
                 //     button += `<a class="btn btn-link text-success text-gradient px-3 mb-0" href="#" onclick="editSeriesStatus(${data[0].id}, '${data[0].status}')" data-bs-toggle="modal" data-bs-target="#editSeriesStatusModal"><i class="fa fa-check-double me-2" aria-hidden="true"></i>Ativar</a>`
-              
+
                 // }
 
                 document.getElementById('action').innerHTML = `<a class="btn btn-link text-secondary px-3 mb-0 ${display}" href="#" onclick="editSeries(${data[0].id})"  data-bs-toggle="modal" data-bs-target="#editSeriesModal">
@@ -127,6 +127,7 @@ async function showSeries(idSerie) {
             }
         })
         .catch(error => console.log(error))
+
 }
 
 const addSeriesForm = document.getElementById('addSeriesForm');
@@ -332,7 +333,7 @@ async function listScheduleSeries(idSerie) {
             console.log(data);
 
             //document.querySelector("#tb_series_schedule > thead > tr").innerHTML = `${getConfiguraion(1)}`;
-            defineRowsTable(startDayWeek,endDayWeek,qtdePosition,'#tb_series_schedule > thead > tr')
+            defineRowsTable(startDayWeek, endDayWeek, qtdePosition, '#tb_series_schedule > thead > tr')
             document.querySelector("#tb_series_schedule > tbody").innerHTML = `${loadDataScheduleSerie(data)}`;
             document.getElementById('totalSchedule').textContent = writeZero(data.length)
 
@@ -349,6 +350,7 @@ async function listScheduleSeries(idSerie) {
                 document.getElementById('btn_print_series_schedule').classList.add('btn-primary')
                 document.getElementById('btn_print_series_schedule').classList.remove('disabled', 'btn-outline-primary')
                 document.getElementById('btn_print_series_schedule').setAttribute('onclick', `printReport(${idSerie})`)
+                document.getElementById('btn_send_series_schedule').setAttribute('onclick', `sendEmail(${idSerie})`)
 
             }
 
@@ -389,7 +391,7 @@ function loadDataScheduleSerie(data) {
         // let dayShow = ps === 1 ? convertDayWeek(dw) : '';           
         // let rowColor = dw % 2 === 0 ? 'table-secondary' : 'table-success'
 
-        for (let dw = startDayWeek; dw <= endDayWeek ; dw++) {
+        for (let dw = startDayWeek; dw <= endDayWeek; dw++) {
             row += `<td class="text-center align-middle">`
             //row += `<th scope="row">${dw}${ps}</th>`
 
@@ -429,3 +431,60 @@ async function getSeries(id, locale) {
         })
         .catch(error => console.log(error))
 }
+
+const sendEmailModal = new bootstrap.Modal(document.getElementById('sendEmailModal'));
+const sendEmailForm = document.getElementById('sendEmailForm');
+
+async function sendEmail(idSerie) {
+
+    await axios.get(`${URL_BASE}/${URIS.series.show}/${idSerie}`)
+        .then(response => {
+            console.log(response.data)
+            document.getElementById('idSerieEmail').value = `${response.data[0].description}º${response.data[0].classification} - ${convertShift(response.data[0].shift)}`
+
+        })
+        .catch(error => console.log(error))
+}
+
+if (sendEmailForm) {
+
+    //document.getElementById('idSerieEmail').value = idSerie
+
+    sendEmailForm.addEventListener('submit', async (e) => {
+
+        showLoading()
+
+        e.preventDefault();
+
+        const dataForm = new FormData(sendEmailForm);
+        await axios.post(`${URL_BASE}/${URIS.series.send}`, dataForm, {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                hideLoading();
+                console.log(response.data)
+                sendEmailModal.hide();
+                sendEmailForm.reset();
+                loadToast(typeSuccess, titleSuccess, messageSuccess);
+                listSeries();
+            })
+            .catch(error => {
+                hideLoading();
+                if (error.response.data.messages.code === 500) {
+                    loadToast(typeError, titleError, new Message(error.response.data.messages.msgs).getMessage());
+                } else {
+                    loadToast(typeError, titleError, new Message(error.response.data.messages.msgs.description).getMessage());
+                }
+                console.log(error)
+                console.log(error)
+                console.log('aqui tem error')
+                document.getElementById('msgAlertErrorSendEmail').innerHTML = error.response.data.messages.msg
+                validateErros(error.response.data.messages.msgs.description, 'fieldAlertErrorDescriptionSendEmail')
+
+
+            }
+            )
+    })
+} 

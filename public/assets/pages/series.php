@@ -21,6 +21,7 @@ echo session()->get('tokenAuth');
 
   <?php include('series/modal/edit.html'); ?>
   <?php include('series/modal/delete.html'); ?>
+  <?php include('series/modal/sendEmail.html'); ?>
   <?php //include('series/modal/add.html'); ?>
   <?php //include('series/modal/delete.html'); ?>
   <?php //include('series/modal/list-series.html'); ?>

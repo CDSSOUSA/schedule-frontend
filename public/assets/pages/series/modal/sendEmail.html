@@ -1,0 +1,39 @@
+<div class="modal fade" id="sendEmailModal" tabindex="-1" role="dialog" aria-labelledby="sendEmailModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="card card-plain">
+                    <div class="card-header pb-0 text-left">
+                        <h3 class="font-weight-bolder text-primary text-gradient"> <i class="fa fa-envelope"></i>
+                            Série ::</h3>
+                        <p class="mb-0">Entre com email para enviar.</p>
+                    </div>
+                    <div class="card-body pb-3">
+                        <form role="form text-left" method="post" action="series/send" id="sendEmailForm">
+                            <input type="text" name="id" id="idSerieEmail">
+                            <span id="msgAlertErrorSendEmail"></span>
+                            <div class="row">
+                              <div class="col">
+                                <label class="col-form-label">Digite o email :: <span class="error invalid-feedback"
+                                    id="fieldAlertErrorDescriptionSendEmail"></span>
+                                 </label>
+                                <div class="input-group mb-3">
+                                  <input type="text" value="cleberdossantossousa@gmail.com" name="description" class="form-control"
+                                    onfocus="eraseAlert(['msgAlertErrorSendEmail','fieldAlertErrorDescriptionSendEmail']);"
+                                    id="descriptionEdit" placeholder="Ex.: email@email.com.br ..." aria-label="name" aria-describedby="name">
+                  
+                                </div>
+                              </div>
+                            </div> 
+                            <div class="text-center">
+                              <button type="submit" class="btn bg-gradient-primary btn-lg btn-rounded w-100 mt-4 mb-0">Salvar</button>
+                              <button type="button" class="btn btn-link  ml-auto" data-bs-dismiss="modal">Sair</button>
+                            </div>
+                          </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

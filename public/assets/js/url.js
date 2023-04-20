@@ -56,7 +56,9 @@ const URIS = {
         active: "series/active",
         list: {
             shift:"series/list/shift"
-        }
+        },
+        sendEmail :"series/sendEmail",
+        send :"series/send"
     },
     year: {
         show:"year/show",
