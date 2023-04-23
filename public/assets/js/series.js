@@ -440,7 +440,8 @@ async function sendEmail(idSerie) {
     await axios.get(`${URL_BASE}/${URIS.series.show}/${idSerie}`)
         .then(response => {
             console.log(response.data)
-            document.getElementById('idSerieEmail').value = `${response.data[0].description}º${response.data[0].classification} - ${convertShift(response.data[0].shift)}`
+            document.getElementById('serieSendEmail').value = `${response.data[0].description}º${response.data[0].classification} - ${convertShift(response.data[0].shift)} - ${response.data[0].year}}`
+            document.getElementById('idSendEmail').value = `${idSerie}`
 
         })
         .catch(error => console.log(error))
